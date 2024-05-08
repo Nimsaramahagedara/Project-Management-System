@@ -54,7 +54,7 @@ const ClassMNG = () => {
       const data = {
         ownedBy: selectedClassTeacher
       }
-      const result = await authAxios.put(`${apiUrl}/class/assign-teacher/${selectedClass._id}`, data)
+      const result = await authAxios.put(`${apiUrl}/specialization/assign-teacher/${selectedClass._id}`, data)
 
       console.log(result.data);
       toast.success(result.data.message);
@@ -66,7 +66,7 @@ const ClassMNG = () => {
   }
 
   const getStudentsInClass = async (id) => {
-    const inClassStudents = await authAxios.get(`${apiUrl}/class/get-students/${id}`);
+    const inClassStudents = await authAxios.get(`${apiUrl}/specialization/get-students/${id}`);
     console.log(inClassStudents.data);
     setViewData(inClassStudents.data);
   }
