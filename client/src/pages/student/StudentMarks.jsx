@@ -141,7 +141,7 @@ const StudentMarks = () => {
               {/* <ColorCard name={'Your Current Average'} count={55.5} bgColor={'#eafce8'} icon={<FunctionsIcon />} /> */}
               <ColorCard name={'Highest Mark'} count={highestMarks} bgColor={'#eafce8'} icon={<StarIcon />} />
               <ColorCard name={'Best Performed Subject'} count={highestMarksSubject} bgColor={'#eafce8'} icon={<MenuBookIcon />} />
-              <ColorCard name={'Best Performed Term'} count={termWithHighestSum + '/3'} bgColor={'#eafce8'} icon={<AcUnitIcon />} />
+              <ColorCard name={'Best Performed Term'} count={termWithHighestSum + '/2'} bgColor={'#eafce8'} icon={<AcUnitIcon />} />
 
             </div>
 

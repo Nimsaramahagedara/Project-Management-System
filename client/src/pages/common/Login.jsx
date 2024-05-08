@@ -53,8 +53,8 @@ export default function Login() {
         login(isLoggedin.data.userRole, isLoggedin.data.token)
 
         switch (isLoggedin.data.userRole) {
-          case 'admin': //Admin
-            toast.success('Login Success as an Admin')
+          case 'coordinator': //Admin
+            toast.success('Login Success as the Co-ordinator')
             navigate('/dashboard');
             break;
           case 'student': //Student
@@ -106,7 +106,7 @@ export default function Login() {
       >
         <Logo />
         <Typography variant='h5' margin={'10px 0px'}>
-          Dharmapala Knowledge Base
+        Project Module Management System
         </Typography>
         {/* <Typography variant='subtitle2'>
           Don't have an account?

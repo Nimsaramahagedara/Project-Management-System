@@ -14,7 +14,7 @@ import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { adminListItems, teacherListItems, studentListItems, supportListItems, secondaryListItems, parentListItems } from '../admin/listItems';
+import { coordinatorListItems, teacherListItems, studentListItems, supportListItems, secondaryListItems, parentListItems } from '../admin/listItems';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Notifications from '@mui/icons-material/Notifications';
 import { useAuth } from './AuthContext';
@@ -39,7 +39,7 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://localhost:3030/">
-        Dharmapala Knowledge BOard
+        Project Module Management System
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -162,8 +162,8 @@ export default function Dashboard() {
 
   useEffect(() => {
     switch (userRole) {
-      case "admin": //Admin
-        setNavlinks(adminListItems);
+      case "coordinator": //Co-ordinator
+        setNavlinks(coordinatorListItems);
         break;
       case "support": //Support
         setNavlinks(supportListItems);
@@ -180,10 +180,6 @@ export default function Dashboard() {
     }
 
   }, []);
-
-
-
-
 
 
   return (

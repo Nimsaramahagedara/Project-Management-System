@@ -378,9 +378,8 @@ const StudentMNG = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Grade</TableCell>
-              <TableCell>Class</TableCell>
-              <TableCell>Class Teacher</TableCell>
+              <TableCell>Semester</TableCell>
+              <TableCell>Specialization</TableCell>
               <TableCell>QTY of Students</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
@@ -391,7 +390,6 @@ const StudentMNG = () => {
                 <TableRow key={index}>
                   <TableCell>{row.grade}</TableCell>
                   <TableCell>{row.subClass}</TableCell>
-                  <TableCell>{row.ownedBy ? (row.ownedBy.firstName + ' ' + row.ownedBy.lastName) : 'Not Assigned'}</TableCell>
                   <TableCell>{row.studentCount} /40</TableCell>
                   <TableCell>
                     <Button
@@ -414,7 +412,7 @@ const StudentMNG = () => {
       {/* View Class Details Dialog Table Starts here.. */}
       <Dialog open={viewOpen} onClose={handleViewClose} maxWidth="xl">
         <DialogTitle sx={{ textAlign: 'center' }}>
-          Class Details - {selectedClass.grade} {selectedClass.subClass}
+          Student Details - {selectedClass.grade} {selectedClass.subClass}
         </DialogTitle>
         <DialogContent>
           <TableContainer style={{ marginTop: '20px' }} sx={{ maxWidth: '100%' }}>
@@ -422,7 +420,7 @@ const StudentMNG = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>No</TableCell>
-                  <TableCell>Index No</TableCell>
+                  <TableCell>SLIIT ID</TableCell>
                   <TableCell>Student Name</TableCell>
                   <TableCell>DOB</TableCell>
                   <TableCell>Mobile</TableCell>

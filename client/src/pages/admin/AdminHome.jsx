@@ -12,7 +12,7 @@ import Paper from '@mui/material/Paper';
 import PieChart4 from '../../components/PieChart4';
 import BarChart from '../../components/AdminBarChart';
 import AdminSimpleTable from '../../components/AdminSimpleTable';
-import { getTerm } from '../../utils/usefulFunctions';
+import { getSemester } from '../../utils/usefulFunctions';
 import PieChart2 from '../../components/PieChart2';
 import authAxios from '../../utils/authAxios';
 import { apiUrl } from '../../utils/Constants';
@@ -47,10 +47,10 @@ const AdminHome = () => {
       !isLoading ? (<Container maxWidth={'800px'} >
       <AdminWelcomeCard/>
       <Box component={'div'} className='flex justify-between items-center'>
-        <SimpleCard name={'Current Term'} to={''} count={`${getTerm()}/3`} icon={<DateRangeIcon color='primary' fontSize='large'/>}/>
-        <SimpleCard name={'Subjects'} to={'manageacc'} count={overview.subjectCount} icon={<AutoStoriesIcon color='warning' fontSize='large'/>}/>
+        <SimpleCard name={'Current Semester'} to={''} count={`${getSemester()}/2`} icon={<DateRangeIcon color='primary' fontSize='large'/>}/>
+        <SimpleCard name={'Projects'} to={'manageacc'} count={overview.subjectCount} icon={<AutoStoriesIcon color='warning' fontSize='large'/>}/>
         <SimpleCard name={'Students'} to={'manageacc'} count={overview.studentCount} icon={<DirectionsWalkIcon color='secondary' fontSize='large'/>}/>
-        <SimpleCard name={'Teachers'} to={'manageacc'} count={overview.teacherCount} icon={<SchoolIcon color='error' fontSize='large'/>}/>
+        <SimpleCard name={'Supervisors'} to={'manageacc'} count={overview.teacherCount} icon={<SchoolIcon color='error' fontSize='large'/>}/>
       </Box>
 
       <Grid container spacing={2} marginTop={1}>

@@ -14,16 +14,16 @@ const Header = ({ isLoggedIn = false }) => {
                     <img src={schoolLogo} alt="logo" className='w-full h-full object-contain' />
                 </div>
                 <div>
-                    <h1 className='lg:text-4xl text-xl text-blue-950 font-bold px-3'>Darmapala Knowledge Board</h1>
+                    <h1 className='lg:text-4xl text-xl text-blue-950 font-bold px-3'>Project Module Management System</h1>
                 </div>
             </div>
             {
                 isLoggedIn ?  <div className='space-y-3 px-4 mx-12'>
-                <button className='px-12 py-3 bg-gray-300 hover:bg-gray-400' onClick={() => logout()}>LMS Log Out</button><br />
+                <button className='px-12 py-3 bg-gray-300 hover:bg-gray-400' onClick={() => logout()}>Log Out</button><br />
                 <a href="#" className='text-yellow-500 block'>Change Your Password ?</a>
             </div> : <div className='space-y-3 px-4 mx-12'>
                     <h4>Login Using Your Account</h4>
-                    <button className='px-12 py-3 bg-gray-300 hover:bg-gray-400' onClick={() => navigate('/login')}>LMS Login</button><br />
+                    <button className='px-12 py-3 bg-gray-300 hover:bg-gray-400' onClick={() => navigate('/login')}>Login</button><br />
                     <a href="#" className='text-yellow-500  hidden'>Forgot Your Password ?</a>
                 </div>
             }

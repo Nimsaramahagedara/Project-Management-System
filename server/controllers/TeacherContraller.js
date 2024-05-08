@@ -146,7 +146,7 @@ export const updateSupervisor = async (req, res) => {
         password: data.password,
         email: data.email,
         gender: data.gender,
-        role: 'teacher',
+        role: 'supervisor',
         contactNo: data.contactNo,
         parentId: null,
         classId: null,
