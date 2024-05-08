@@ -125,7 +125,7 @@ const StudentMNG = () => {
   useEffect(() => {
     const getAllClasses = async () => {
       try {
-        const allClasses = await authAxios.get(`${apiUrl}/class`);
+        const allClasses = await authAxios.get(`${apiUrl}/specialization`);
         setAllClasses(allClasses.data);
         setIsLoading(false);
       } catch (error) {
