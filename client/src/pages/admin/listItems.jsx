@@ -96,7 +96,7 @@ export const teacherListItems = (
 );
 
 
-export const adminListItems = (
+export const coordinatorListItems = (
   <React.Fragment>
     <Link to={'/dashboard'}>
       <ListItemButton>
