@@ -6,8 +6,9 @@ import { sendEmail } from "../utils/sendEmail.js";
 import bcrypt from 'bcryptjs';
 
 // USER ACCOUNT CREATION
-export const CreateTeacherAccount = async (req, res) => {
+export const CreateSupervisorAccount = async (req, res) => {
     const data = req.body;
+    const regNo = await UserModel.countDocuments();
     try {
         const isExist = await UserModel.findOne({ email: data.email });
         if (isExist) {
@@ -15,20 +16,15 @@ export const CreateTeacherAccount = async (req, res) => {
         }
 
         const teacherData = {
-            regNo: data.regNo,
+            regNo: data?.regNo || regNo+1,
             firstName: data.firstName,
             lastName: data.lastName,
             address: data.address,
-            dob: data.dob,
             password: data.password,
             email: data.email,
             gender: data.gender,
-            role: 'teacher',
+            role: 'supervisor',
             contactNo: data.contactNo,
-            parentId: null,
-            classId: null,
-            ownedClass: null
-
         }
         const result = await UserModel.create(teacherData);
 
@@ -41,54 +37,54 @@ export const CreateTeacherAccount = async (req, res) => {
             message: 'Account Created Successfully!'
         })
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
         res.status(401).json({ message: error.message });
     }
 
 }
 
-export const getAllTeachers = async (req, res) => {
+export const getAllSupervisors = async (req, res) => {
     try {
-        const result = await UserModel.find({ role: 'teacher' });
+        const result = await UserModel.find({ role: 'supervisor' });
 
-        const promises = result.map(async (teacher) => {
-            const hisClass = await SpecializationModel.findOne({ ownedBy: teacher._id })
+        const promises = result.map(async (sup) => {
+            const hisSpec = await SpecializationModel.findOne({ ownedBy: sup._id })
 
-            if (hisClass) {
+            if (hisSpec) {
                 return {
-                    ...teacher._doc,
-                    ownedClass: hisClass
+                    ...sup._doc,
+                    ownedSpec: hisSpec
                 }
             } else {
-                return { ...teacher._doc }
+                return { ...sup._doc }
             }
         })
-        const newTeachers = await Promise.all(promises)
+        const newSup = await Promise.all(promises)
 
-        const promises2 = newTeachers.map(async (teacher) => {
-            const hisSubjects = await ProjectModel.find({ teachBy: teacher._id });
+        const promises2 = newSup.map(async (s) => {
+            const hisSubjects = await ProjectModel.find({ supervisor: s._id });
             if (hisSubjects.length > 0) {
 
                 return {
-                    ...teacher,
-                    ownedSubjects: hisSubjects
+                    ...s,
+                    ownedProject: hisSubjects
                 }
             } else {
-                return { ...teacher }
+                return { ...s }
 
             }
 
         })
 
-        const newTeachers2 = await Promise.all(promises2)
+        const newSup2 = await Promise.all(promises2)
 
 
 
 
         // console.log(newTeachers);
 
-        if (newTeachers2) {
-            res.status(200).json(newTeachers2);
+        if (newSup2) {
+            res.status(200).json(newSup2);
         }
     } catch (error) {
         res.status(500).json({
@@ -113,7 +109,7 @@ export const getTeacher = async (req, res) => {
         })
     }
 }
-export const deleteTeacher = async (req, res) => {
+export const deleteSupervisor = async (req, res) => {
     const { email } = req.params;
 
     try {
@@ -137,7 +133,7 @@ export const deleteTeacher = async (req, res) => {
     }
 }
 
-export const updateTeacher = async (req, res) => {
+export const updateSupervisor = async (req, res) => {
     const { email } = req.params;
     const data = req.body;
 
