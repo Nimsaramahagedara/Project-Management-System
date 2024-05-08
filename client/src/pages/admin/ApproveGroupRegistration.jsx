@@ -35,6 +35,7 @@ const ApproveGroupRegistration = () => {
 
     const [openRowIndex, setOpenRowIndex] = useState(null); // Track the index of the open row
     const [data, setData] = useState([]);
+    const [insertedStudentIds, setInsertedStudentIds] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const handleClose = () => {
         setOpenRowIndex(null); // Reset open row index when dialog is closed
@@ -62,29 +63,79 @@ const ApproveGroupRegistration = () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(studentSchema), // Send studentSchema instead of student
-                });
-                // Handle response as needed
-                console.log('Student added:', response);
-                toast.success('Student added');
+                    body: JSON.stringify(studentSchema),
+                }).then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                    .then(data => {
+                        console.log('Account created successfully:', data);
+                        insertedStudentIds.push(data.result._id);
+                    })
+                    .catch(error => {
+                        console.error('There was a problem creating the account:', error.message);
+                    })
+                console.log('insertedStudentId:', insertedStudentIds);
             }
 
-            const result = await authAxios.delete(`${apiUrl}/registerTemp/${row._id}`);
-            console.log('Student deleted:', result);
+            toast.success('Student added');
             toast.success('Group approved successfully');
-            handleClose();
-            fetchData();
+            handleSubmit(row);
         } catch (error) {
             console.error('Error registering students:', error);
         }
     };
 
+    const handleSubmit = async (data) => {
+        const registerData = createRegisterData(data);
+        try {
+            const result = await authAxios.post(`${apiUrl}/group`, registerData);
+            if (result) {
+                toast.success('Registration Successfully');
+                const res = await authAxios.delete(`${apiUrl}/registerTemp/${data._id}`);
+                handleClose();
+                setOpenRowIndex(null);
+                fetchData();
+                console.log(res)
+            }
+        } catch (error) {
+            toast.error(error.response.data.message);
+        }
+    };
+
+
+    const createRegisterData = (formData) => {
+        return {
+            projectTitle: formData.projectTitle,
+            researchArea: formData.researchArea,
+            specialization: formData.specialization,
+            students: [
+                {
+                    studentId: insertedStudentIds[0]
+                },
+                {
+                    studentId: insertedStudentIds[1]
+                },
+                {
+                    studentId: insertedStudentIds[2]
+                },
+                {
+                    studentId: insertedStudentIds[3]
+                }
+            ],
+            supervisor: formData.supervisor,
+            coSupervisor: formData.coSupervisor
+        }
+    };
 
     const fetchData = async () => {
         try {
             const response = await fetch(`${apiUrl}/registerTemp/`);
             const data = await response.json();
             setData(data);
+            console.log(data)
             setIsLoading(false);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -161,8 +212,8 @@ const ApproveGroupRegistration = () => {
                                                 </ListItem>
 
                                                 <ListItem>
-                                                    <ListItemText primary="Project Leader Name" secondary={row.projectLeader.name} />
-                                                    <ListItemText primary="Registration Number" secondary={row.projectLeader.registrationNumber} />
+                                                    <ListItemText primary="Project Leader Name" secondary={row.projectLeader ? `${row.projectLeader.firstName} ${row.projectLeader.lastName}` : 'N/A'} />
+                                                    <ListItemText primary="Registration Number" secondary={row.projectLeader ? `${row.projectLeader.regNo}` : 'N/A'} />
                                                 </ListItem>
 
                                                 <Divider />

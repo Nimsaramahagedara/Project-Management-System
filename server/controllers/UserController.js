@@ -57,13 +57,9 @@ export const CreateAccount = async (req, res) => {
         if (isExist) {
             throw Error('Email Already Exist !!');
         }
-
         const result = await UserModel.create(data);
-        
         sendEmail(data.email, "Account Created Successfully", { name: `Username : ${data.email}`, description: `Password: ${data.password}`, }, "./template/emailtemplate.handlebars");
-        res.status(200).json({
-            message: 'Account Created Successfully!'
-        })
+        res.status(200).json(result)
     } catch (error) {
         console.log(error);
         res.status(401).json({ message: error.message });

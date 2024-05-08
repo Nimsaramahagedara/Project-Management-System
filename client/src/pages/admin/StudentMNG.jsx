@@ -89,7 +89,7 @@ const StudentMNG = () => {
 
   const handleView = async (row) => {
     setSelectedClass(row);
-    const allStudents = await authAxios.get(`${apiUrl}/class/get-students/${row._id}`);
+    const allStudents = await authAxios.get(`${apiUrl}/specialization/get-students/${row._id}`);
     setViewData(allStudents.data);
     setViewOpen(true);
   };
@@ -125,7 +125,7 @@ const StudentMNG = () => {
   useEffect(() => {
     const getAllClasses = async () => {
       try {
-        const allClasses = await authAxios.get(`${apiUrl}/class`);
+        const allClasses = await authAxios.get(`${apiUrl}/specialization`);
         setAllClasses(allClasses.data);
         setIsLoading(false);
       } catch (error) {
@@ -388,8 +388,8 @@ const StudentMNG = () => {
             !isLoading ? <TableBody>
               {AllClasses.map((row, index) => (
                 <TableRow key={index}>
-                  <TableCell>{row.grade}</TableCell>
-                  <TableCell>{row.subClass}</TableCell>
+                  <TableCell>Y{row.year} S{row.semester}</TableCell>
+                  <TableCell>{row.specialization}</TableCell>
                   <TableCell>{row.studentCount} /40</TableCell>
                   <TableCell>
                     <Button
