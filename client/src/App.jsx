@@ -46,6 +46,7 @@ import PaymentAPI from './pages/parent/PaymentAPI'
 import PaymentSuccess from './pages/parent/PaymentSuccess'
 import Chat from './pages/teacher/Chat';
 import MessageTeacher from './pages/student/Message';
+import GroupRegistrationForm from './pages/student/GroupRegistrationForm'
 
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
           <Route path='/' element={<LandingPage />} />
           <Route path='/login' element={<Login />} />
           <Route path='*' element={<NotFound />} />
+          <Route path='/tempreg' element={<GroupRegistrationForm />} />
           <Route path='/dashboard' element={<Dashboard />}>
             {/* Admin Routes */}
             <Route path='' element={<AdminHome />} />

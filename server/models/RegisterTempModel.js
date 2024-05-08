@@ -1,30 +1,28 @@
 import mongoose from 'mongoose';
 
 const studentSchema = new mongoose.Schema({
-    name: {
+    firstName: {
         type: String,
         required: true
     },
-    registrationNumber: {
+    lastName: {
+        type: String,
+    },
+    regNo: {
         type: String,
         required: true
     },
-    contactNumber: {
+    contactNo: {
         type: String,
         required: true
     },
-    emailAddress: {
+    email: {
         type: String,
         required: true
     },
     batch: {
         type: String,
         enum: ['Regular', 'June'],
-        required: true
-    },
-    specialization: {
-        type: String,
-        enum: ['IT', 'SE', 'IS', 'CS', 'DS', 'CSNE'],
         required: true
     }
 });
@@ -36,11 +34,12 @@ const RegisterTempSchema = new mongoose.Schema({
     },
     researchArea: {
         type: String,
+        enum: ['Machine Learning', 'Natural Language Processing', 'Intelligent Systems', 'Robotics'],
         required: true
     },
-    researchGroup: {
-        type: String,
-        enum: ['Machine Learning', 'Natural Language Processing', 'Intelligent Systems', 'Robotics'],
+    specialization: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'specialization',
         required: true
     },
     students: [studentSchema],
@@ -48,14 +47,18 @@ const RegisterTempSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'users',
     },
-    coSupervisors: {
+    coSupervisor: {
         type: mongoose.Schema.ObjectId,
         ref: 'users',
+    },
+    projectLeader: { 
+        name: {
+            type: String
+        },
+        registrationNumber: {
+            type: String
+        }
     }
-    // specId: {
-    //     type: mongoose.Schema.ObjectId,
-    //     ref: 'specialization'
-    // }
 }, { timestamps: true });
 
 RegisterTempSchema.pre('save', function (next) {

@@ -4,7 +4,7 @@ import CounterModel from './CounterModel.js';
 
 const UserSchema = new mongoose.Schema({
     regNo: {
-        type: Number,
+        type: String,
         unique: true
     },
     firstName: {
