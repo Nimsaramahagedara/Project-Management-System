@@ -108,7 +108,7 @@ const SubjectMNG = ({ ClassList }) => {
   return (
     <div>
       <div style={{ textAlign: 'center' }}>
-        <h1 style={{ fontSize: '2em' }}>Manage Subjects In Classes</h1>
+        <h1 style={{ fontSize: '2em' }}>Manage Projects In Specializations</h1>
       </div>
 
 
