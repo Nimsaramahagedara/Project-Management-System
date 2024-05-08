@@ -92,7 +92,7 @@ const GroupRegistrationForm = () => {
         return {
             projectTitle: formData.projectTitle,
             researchArea: formData.researchArea,
-            specialization: specialization,
+            specialization: formData.specialization,
             students: [
                 {
                     firstName: formData.studentFirstName,
@@ -148,7 +148,7 @@ const GroupRegistrationForm = () => {
                     {/* Project Title */}
                     <TextField
                         required
-                        id="outlined-required"
+                        
                         label="Project Title"
                         fullWidth
                         margin="normal"
@@ -225,7 +225,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300, marginRight: 5 }}
                             required
-                            id="outlined-required"
+                            
                             label="First Name"
                             margin="normal"
                             name="studentFirstName"
@@ -235,7 +235,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300 }}
                             required
-                            id="outlined-required"
+                            
                             label="Last Name"
                             margin="normal"
                             name="studentLastName"
@@ -247,7 +247,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300, marginRight: 5 }}
                             required
-                            id="outlined-required"
+                            
                             label="Registration Number"
                             margin="normal"
                             name="studentRegNo"
@@ -270,7 +270,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300, marginRight: 5 }}
                             required
-                            id="outlined-required"
+                            
                             label="Email"
                             margin="normal"
                             name="studentEmail"
@@ -280,7 +280,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300 }}
                             required
-                            id="outlined-required"
+                            
                             label="Contact Number"
                             type='number'
                             margin="normal"
@@ -302,7 +302,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300, marginRight: 5 }}
                             required
-                            id="outlined-required"
+                            
                             label="First Name"
                             margin="normal"
                             name="student2FirstName"
@@ -312,7 +312,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300 }}
                             required
-                            id="outlined-required"
+                            
                             label="Last Name"
                             margin="normal"
                             name="student2LastName"
@@ -324,7 +324,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300, marginRight: 5 }}
                             required
-                            id="outlined-required"
+                            
                             label="Registration Number"
                             margin="normal"
                             name="student2RegNo"
@@ -347,7 +347,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300, marginRight: 5 }}
                             required
-                            id="outlined-required"
+                            
                             label="Email"
                             margin="normal"
                             name="student2Email"
@@ -357,7 +357,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300 }}
                             required
-                            id="outlined-required"
+                            
                             label="Contact Number"
                             type='number'
                             margin="normal"
@@ -379,7 +379,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300, marginRight: 5 }}
                             required
-                            id="outlined-required"
+                            
                             label="First Name"
                             margin="normal"
                             name="student3FirstName"
@@ -389,7 +389,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300 }}
                             required
-                            id="outlined-required"
+                            
                             label="Last Name"
                             margin="normal"
                             name="student3LastName"
@@ -401,7 +401,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300, marginRight: 5 }}
                             required
-                            id="outlined-required"
+                            
                             label="Registration Number"
                             margin="normal"
                             name="student3RegNo"
@@ -424,7 +424,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300, marginRight: 5 }}
                             required
-                            id="outlined-required"
+                            
                             label="Email"
                             margin="normal"
                             name="student3Email"
@@ -434,7 +434,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300 }}
                             required
-                            id="outlined-required"
+                            
                             label="Contact Number"
                             type='number'
                             margin="normal"
@@ -456,7 +456,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300, marginRight: 5 }}
                             required
-                            id="outlined-required"
+                            
                             label="First Name"
                             margin="normal"
                             name="student4FirstName"
@@ -466,7 +466,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300 }}
                             required
-                            id="outlined-required"
+                            
                             label="Last Name"
                             margin="normal"
                             name="student4LastName"
@@ -478,7 +478,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300, marginRight: 5 }}
                             required
-                            id="outlined-required"
+                            
                             label="Registration Number"
                             margin="normal"
                             name="student4RegNo"
@@ -501,7 +501,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300, marginRight: 5 }}
                             required
-                            id="outlined-required"
+                            
                             label="Email"
                             margin="normal"
                             name="student4Email"
@@ -511,7 +511,7 @@ const GroupRegistrationForm = () => {
                         <TextField
                             sx={{ minWidth: 300 }}
                             required
-                            id="outlined-required"
+                            
                             label="Contact Number"
                             type='number'
                             margin="normal"
