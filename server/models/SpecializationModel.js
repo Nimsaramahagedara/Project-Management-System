@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
 const SpecSchema = new mongoose.Schema({
+    specialization:{
+        type:String,
+        required:true
+    },
     year: {
         type: Number,
         required: true

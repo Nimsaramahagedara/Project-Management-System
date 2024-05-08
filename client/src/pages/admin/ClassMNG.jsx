@@ -99,6 +99,7 @@ const ClassMNG = () => {
   const getAllClasses = async () => {
     try {
       const allClasses = await authAxios.get(`${apiUrl}/class`);
+      console.log('All Years', allClasses.data);
       setAllClasses(allClasses.data);
     } catch (error) {
       toast.error(error.response.data.message)
@@ -122,7 +123,7 @@ const ClassMNG = () => {
       console.log(allT);
       toast.success(allT.data.message);
       setIsLoading(false);
-      changeRefresh((prev)=>!prev)
+      changeRefresh((prev) => !prev)
     } catch (error) {
       toast.error(error.response.data.message)
     }
@@ -213,8 +214,9 @@ const ClassMNG = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Grade</TableCell>
-              <TableCell>Class</TableCell>
+              <TableCell>Spec</TableCell>
+              <TableCell>Year</TableCell>
+              <TableCell>Semester</TableCell>
               <TableCell>Class Teacher</TableCell>
               <TableCell>QTY of Students</TableCell>
               <TableCell>Actions</TableCell>
@@ -224,8 +226,9 @@ const ClassMNG = () => {
             !isLoading ? <TableBody>
               {AllClasses.map((row, index) => (
                 <TableRow key={index}>
-                  <TableCell>{row.grade}</TableCell>
-                  <TableCell>{row.subClass}</TableCell>
+                  <TableCell>{row?.specialization}</TableCell>
+                  <TableCell>{row.year}</TableCell>
+                  <TableCell>{row.semester}</TableCell>
                   <TableCell>{row.ownedBy ? (row.ownedBy.firstName + ' ' + row.ownedBy.lastName) : 'Not Assigned'}</TableCell>
                   <TableCell>{row.studentCount}</TableCell>
                   <TableCell>
@@ -270,7 +273,7 @@ const ClassMNG = () => {
         </Select>
         <Button variant='contained' color='warning' onClick={() => updateClassTeacher()}>Update Class Teacher</Button>
         <DialogContent>
-        <p>To update the acocunts, please go to account management section</p>
+          <p>To update the acocunts, please go to account management section</p>
 
           <TableContainer style={{ marginTop: '20px' }} sx={{ maxWidth: '100%' }}>
             <Table sx={{ maxWidth: '100%' }}>
@@ -327,9 +330,9 @@ const ClassMNG = () => {
           <p>Enter the password</p>
           <p>Hint : 1234</p>
           <div className='w-full flex-col flex items-center justify-center space-y-5'>
-            <TextField value={gradeupPwd} onChange={(e)=> setGradeUpPwd(e.target.value)} />
+            <TextField value={gradeupPwd} onChange={(e) => setGradeUpPwd(e.target.value)} />
             {
-              gradeupPwd == '1234' &&             <Button variant='contained' color='error' onClick={() => gradeUp()}> Grade Up </Button>
+              gradeupPwd == '1234' && <Button variant='contained' color='error' onClick={() => gradeUp()}> Grade Up </Button>
             }
 
           </div>

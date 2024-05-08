@@ -14,12 +14,13 @@ export const getAllClasses = async (req, res) => {
         // Iterate through each class
         for (const classObj of classes) {
             // Count the number of students enrolled in the current class
-            const studentCount = await UserModel.countDocuments({ classId: classObj._id, role:'student' });
+            const studentCount = await UserModel.countDocuments({ specialization: classObj._id, role:'student' });
 
             const classWithCount = {
                 _id: classObj._id,
-                grade: classObj.grade,
-                subClass: classObj.subClass,
+                year: classObj.year,
+                specialization:classObj?.specialization,
+                semester: classObj.semester,
                 ownedBy: classObj.ownedBy,
                 subjects:classObj.subjects,
                 // Add the student count to the class object
@@ -61,8 +62,8 @@ export const createClass = async (req, res) => {
 
     try {
         const classData = {
-            grade: data.grade,
-            subClass: data.subClass,
+            year: data.grade,
+            semester: data.subClass,
             students: Array(),
             ownedBy: null,
             subjects: Array()
