@@ -14,7 +14,10 @@ export const createTempGroup = async (req, res) => {
 // Read operation - Get all tempGroups
 export const getAllTempGroups = async (req, res) => {
     try {
-        const tempGroups = await RegisterTempModel.find();
+        const tempGroups = await RegisterTempModel.find()
+        .populate('specialization')
+        .populate('coSupervisor')
+        .populate('supervisor');
         res.status(200).json(tempGroups);
     } catch (error) {
         res.status(500).json(error);

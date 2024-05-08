@@ -19,10 +19,8 @@ export const CreateSupervisorAccount = async (req, res) => {
             regNo: data?.regNo || regNo+1,
             firstName: data.firstName,
             lastName: data.lastName,
-            address: data.address,
             password: data.password,
             email: data.email,
-            gender: data.gender,
             role: 'supervisor',
             contactNo: data.contactNo,
         }

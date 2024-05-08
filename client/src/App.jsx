@@ -47,6 +47,7 @@ import PaymentSuccess from './pages/parent/PaymentSuccess'
 import Chat from './pages/teacher/Chat';
 import MessageTeacher from './pages/student/Message';
 import GroupRegistrationForm from './pages/student/GroupRegistrationForm'
+import ApproveGroupRegistration from './pages/admin/ApproveGroupRegistration'
 
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
             <Route path='classes' element={<ClassMNG />} />
             <Route path='publishNotice' element={<AdminPublishNotices />} />
             <Route path='notifications' element={<Notifications />} />
+            <Route path='groupApprove' element={<ApproveGroupRegistration />} />
 
             {/* Supervisor Routes */}
             <Route path='attendance' element={<Attendence />} />

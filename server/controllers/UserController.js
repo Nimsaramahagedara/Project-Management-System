@@ -71,6 +71,16 @@ export const CreateAccount = async (req, res) => {
 
 }
 
+export const getAllUsers = async (req, res) => {
+    try {
+      const notices = await UserModel.find();
+      return res.status(200).json(notices);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+
 //GET USER DETAILS
 export const getUserDetails = async(req,res)=>{
     const id = req.loggedInId
