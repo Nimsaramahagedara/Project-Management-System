@@ -12,8 +12,8 @@ const SubjectMNG = ({ ClassList }) => {
   const [viewOpen, setViewOpen] = useState(false);
   const [allTeachers, setAllTeachers] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState({
-    _id : '',
-    subName : '',
+    _id: '',
+    subName: '',
     teachBy: '',
     classId: '',
   });
@@ -53,11 +53,11 @@ const SubjectMNG = ({ ClassList }) => {
   const handleUpdateModal = async (id) => {
 
     axios.get(`${apiUrl}/student/get-subject/${id}`).then((res) => {
-      const newObj =    {
+      const newObj = {
         _id: res.data?._id,
-        subName:res.data?.subName,
-        classId:res.data?.classId,
-        teachBy:res.data?.teachBy._id
+        subName: res.data?.subName,
+        classId: res.data?.classId,
+        teachBy: res.data?.teachBy._id
       }
       setSelectedSubject(newObj);
       setSubjectModal(true)
@@ -91,15 +91,16 @@ const SubjectMNG = ({ ClassList }) => {
     }
   }
 
-  const changeSelectedSubjectTeacher = (id)=>{
-    setSelectedSubject(prev=>({...prev,
-    teachBy:id
+  const changeSelectedSubjectTeacher = (id) => {
+    setSelectedSubject(prev => ({
+      ...prev,
+      teachBy: id
     }))
   }
 
-  const handleUpdateTeacher = async()=>{
+  const handleUpdateTeacher = async () => {
     try {
-      const res =await authAxios.put(`${apiUrl}/subject/${selectedSubject._id}`,selectedSubject)
+      const res = await authAxios.put(`${apiUrl}/subject/${selectedSubject._id}`, selectedSubject)
       toast.success('Teacher Updated')
     } catch (error) {
       console.log(error);
@@ -108,7 +109,7 @@ const SubjectMNG = ({ ClassList }) => {
   return (
     <div>
       <div style={{ textAlign: 'center' }}>
-        <h1 style={{ fontSize: '2em' }}>Manage Subjects In Classes</h1>
+        <h1 style={{ fontSize: '2em' }}>Manage Projects In Specializations</h1>
       </div>
 
 
@@ -117,8 +118,9 @@ const SubjectMNG = ({ ClassList }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Grade</TableCell>
-              <TableCell>Class</TableCell>
+              <TableCell>Spec</TableCell>
+              <TableCell>Year</TableCell>
+              <TableCell>Semester</TableCell>
               <TableCell>Class Teacher</TableCell>
               <TableCell>QTY of Students</TableCell>
               <TableCell>Actions</TableCell>
@@ -127,8 +129,9 @@ const SubjectMNG = ({ ClassList }) => {
           <TableBody>
             {ClassList.map((row, index) => (
               <TableRow key={index}>
-                <TableCell>{row.grade}</TableCell>
-                <TableCell>{row.subClass}</TableCell>
+                <TableCell>{row.specialization}</TableCell>
+                <TableCell>{row.year}</TableCell>
+                <TableCell>{row.semester}</TableCell>
                 <TableCell>{row.ownedBy ? (row.ownedBy.firstName + ' ' + row.ownedBy.lastName) : 'Not Assigned'}</TableCell>
                 <TableCell>{row.studentCount}</TableCell>
                 <TableCell>
@@ -224,7 +227,7 @@ const SubjectMNG = ({ ClassList }) => {
             <Select
               fullWidth
               value={selectedSubject.teachBy}
-              onChange={e=>changeSelectedSubjectTeacher(e.target.value)}
+              onChange={e => changeSelectedSubjectTeacher(e.target.value)}
             >
               {allTeachers && allTeachers.map((teacher, index) => (
                 <MenuItem value={teacher._id} key={index}>{teacher.firstName + ' ' + teacher.lastName}</MenuItem>

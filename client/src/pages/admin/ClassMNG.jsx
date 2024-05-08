@@ -106,9 +106,9 @@ const ClassMNG = () => {
     }
   }
 
-  const getAllTeachers = async () => {
+  const getAllSupervisors = async () => {
     try {
-      const allT = await authAxios.get(`${apiUrl}/admin/get-all-teachers`);
+      const allT = await authAxios.get(`${apiUrl}/admin/get-all-supervisors`);
       setAllTeachers(allT.data);
       setIsLoading(false);
     } catch (error) {
@@ -134,7 +134,7 @@ const ClassMNG = () => {
   }
   useEffect(() => {
     getAllClasses();
-    getAllTeachers();
+    getAllSupervisors();
   }, [refresh])
 
 
@@ -145,7 +145,7 @@ const ClassMNG = () => {
       </div>
       <AdminWelcomeCard />
       <div style={{ textAlign: 'center' }}>
-        <h1 style={{ fontSize: '2em' }}>Manage Students Classes</h1>
+        <h1 style={{ fontSize: '2em' }}>Manage Students in Specializations</h1>
       </div>
 
       {/* Adding New Student Part Start Here... */}
