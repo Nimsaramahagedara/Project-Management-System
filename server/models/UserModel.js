@@ -13,19 +13,8 @@ const UserSchema = new mongoose.Schema({
     lastName: {
         type: String,
     },
-    gender: {
-        type: String,
-        enum: ["male", "female", ""],
-    },
     contactNo: {
         type: Number,
-    },
-    address: {
-        type: String,
-        default: 'Not Given'
-    },
-    dob: {
-        type: Date
     },
     email: {
         type: String,
