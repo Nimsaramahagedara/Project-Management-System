@@ -64,7 +64,8 @@ const RegisterTempSchema = new mongoose.Schema({
 RegisterTempSchema.pre('save', function (next) {
     if (this.students.length > 0) {
         this.projectLeader = {
-            name: this.students[0].name,
+            firstName: this.students[0].firstName,
+            lastName: this.students[0].lastName,
             registrationNumber: this.students[0].registrationNumber
         };
     }
