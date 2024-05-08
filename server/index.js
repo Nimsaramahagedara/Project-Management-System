@@ -14,6 +14,7 @@ import ActivityRouter from './routes/ActivityRoutes.js';
 import parentRoutes from './routes/ParentRoutes.js';
 import MarkRouter from './routes/MarkRoutes.js';
 import FeesRouter from './routes/FeesRoutes.js';
+import registerTempRouter from './routes/RegisterTempRoutes.js';
 dotenv.config();
 
 const port = process.env.PORT || 80 ;
@@ -32,7 +33,7 @@ app.get('/', async (req,res)=>{
 app.use('/pay', FeesRouter);
 //Common Routes
 app.use('/',userRouter);
-app.use('/class', classRoutes);
+app.use('/specialization', classRoutes);
 app.use('/notices', noticeRouter);
 app.use('/subject', subjectRoutes)
 app.use('/activity', ActivityRouter);
@@ -50,6 +51,9 @@ app.use('/parent', parentRoutes);
 
 //Admin Routes
 app.use('/admin',adminRouter);
+
+//registerTempRouter Routes
+app.use('/registerTemp',registerTempRouter);
 
 dbConfig().then(()=>{
     app.listen(port,()=>{
