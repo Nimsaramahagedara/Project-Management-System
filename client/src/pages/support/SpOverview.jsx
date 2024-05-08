@@ -11,7 +11,7 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import PieChart3 from '../../components/PieChart3';
 import SimpleTable from '../../components/SimpleTable';
-import { getTerm } from '../../utils/usefulFunctions';
+import { getSemester } from '../../utils/usefulFunctions';
 import authAxios from '../../utils/authAxios';
 import { apiUrl } from '../../utils/Constants';
 
@@ -40,7 +40,7 @@ const SpOverview = () => {
     <Container maxWidth={'800px'} >
       <WelcomeCard/>
       <Box component={'div'} className='flex justify-between items-center'>
-        <SimpleCard name={'Current Term'} to={''} count={`${getTerm()}/3`} icon={<DateRangeIcon color='primary' fontSize='large'/>}/>
+        <SimpleCard name={'Current Semester'} to={''} count={`${getSemester()}/2`} icon={<DateRangeIcon color='primary' fontSize='large'/>}/>
         <SimpleCard name={'Students'} to={'manageacc'} count={overview.studentCount} icon={<DirectionsWalkIcon color='secondary' fontSize='large'/>}/>
         <SimpleCard name={'Teachers'} to={'manageacc'} count={overview.teacherCount} icon={<SchoolIcon color='error' fontSize='large'/>}/>
         <SimpleCard name={'Subjects'} to={'manageacc'} count={overview.subjectCount} icon={<AutoStoriesIcon color='warning' fontSize='large'/>}/>

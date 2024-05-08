@@ -23,10 +23,10 @@ export const Carasoul = (props) => {
     }, []);
     var items = [
         {
-            src: "https://live.staticflickr.com/65535/53370602114_7011b87686_z.jpg"
+            src: "https://static.sliit.lk/wp-content/uploads/2018/03/SLIIT-malabe.jpg"
         },
         {
-            src: "https://live.staticflickr.com/65535/53370602129_e1eb9a7d81_z.jpg"
+            src: "https://static.sliit.lk/wp-content/uploads/2017/11/Library-Facilities.jpg"
         }
     ]
 

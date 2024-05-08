@@ -39,7 +39,7 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://localhost:3030/">
-        Dharmapala Knowledge BOard
+        Project Module Management System
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}

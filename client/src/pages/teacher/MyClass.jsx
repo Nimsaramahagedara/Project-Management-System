@@ -4,7 +4,7 @@ import authAxios from '../../utils/authAxios';
 import { apiUrl } from '../../utils/Constants';
 import SimpleCard from '../../components/SimpleCard';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import { calculateGrade, getTerm } from '../../utils/usefulFunctions';
+import { calculateGrade, getSemester } from '../../utils/usefulFunctions';
 import Loader from '../../components/Loader/Loader';
 import { usePDF } from 'react-to-pdf';
 import { Box, Button, Input, Modal, Typography } from '@mui/material';
@@ -249,7 +249,7 @@ const MyClass = () => {
       <h1 className='mb-5 text-xl font-semibold mt-5'>Welcome to your class</h1>
       <div className='flex items-center justify-between gap-5'>
         <SimpleCard icon={<AccountBalanceIcon />} name={'Your Class'} count={myClassDetails?.myClass?.grade ? (myClassDetails?.myClass?.grade + ' / ' + myClassDetails?.myClass?.subClass) :'You have no class'} />
-        <SimpleCard icon={<AccountBalanceIcon />} name={'Current Term'} count={getTerm() + '/3'} />
+        <SimpleCard icon={<AccountBalanceIcon />} name={'Current Semester'} count={getSemester() + '/2'} />
         {/* <SimpleCard icon={<AccountBalanceIcon />} name={'Your Class'} count={'8A'} />
         <SimpleCard icon={<AccountBalanceIcon />} name={'Your Class'} count={'8A'} /> */}
       </div>
