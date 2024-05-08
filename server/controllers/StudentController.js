@@ -16,21 +16,16 @@ export const CreateStudentAccount = async (req, res) => {
     if (!data?.specialization || data?.specialization == null) {
       throw Error('Student Must Enroll For a Specialization When they Register');
     }
-    const gotParentId = await getParentId(data.parentEmail, data.regNo)
 
     const studentData = {
       regNo: data.regNo,
       firstName: data.firstName,
       lastName: data.lastName,
-      address: data.address,
-      dob: data.dob,
       password: data.password,
       email: data.email,
-      gender: data.gender,
       role: 'student',
       contactNo: data.contactNo,
-      specialization: data.specialization,
-      ownedClass: null
+      specialization: data.specialization
 
     }
     console.log(studentData);
@@ -90,7 +85,6 @@ export const getAllStudents = async (req, res) => {
   try {
     // Find all users with the role set to 'student'
     const students = await UserModel.find({ role: 'student' }).populate('specialization');
-
 
     res.status(200).json(students);
   } catch (error) {

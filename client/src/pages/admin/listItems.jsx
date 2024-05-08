@@ -143,6 +143,15 @@ export const adminListItems = (
       </ListItemButton>
     </Link>
 
+    <Link to={'/dashboard/groupApprove'}>
+      <ListItemButton>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="Approve Group" />
+      </ListItemButton>
+    </Link>
+
     <Link to={'/dashboard/publishNotice'}>
       <ListItemButton>
         <ListItemIcon>
