@@ -22,11 +22,10 @@ const ClassMNG = () => {
   const [gradeupPwd, setGradeUpPwd] = useState('')
   //UPDATE SUPPORT FORM DATA
   const [createClassData, setCreateClassData] = useState({
-    grade: '',
-    subClass: 'A',
-    students: [null],
+    specialization:'',
+    year:'',
+    semester:'',
     ownedBy: null,
-    subjects: [null]
   });
 
   //ACCOUNT UPDATE FORM VALUES HANDLER
@@ -86,7 +85,7 @@ const ClassMNG = () => {
 
   const handleCreateClassSubmit = async () => {
     try {
-      const isClass = await authAxios.post(`${apiUrl}/class/create`, createClassData);
+      const isClass = await authAxios.post(`${apiUrl}/specialization/create`, createClassData);
       if (isClass) {
         toast.success('Class Created SuccessFully');
         changeRefresh((prev) => !prev);
@@ -98,7 +97,7 @@ const ClassMNG = () => {
   };
   const getAllClasses = async () => {
     try {
-      const allClasses = await authAxios.get(`${apiUrl}/class`);
+      const allClasses = await authAxios.get(`${apiUrl}/specialization`);
       console.log('All Years', allClasses.data);
       setAllClasses(allClasses.data);
     } catch (error) {
@@ -150,16 +149,16 @@ const ClassMNG = () => {
 
       {/* Adding New Student Part Start Here... */}
       <Button variant="contained" onClick={handleCreateClass}>
-        Create New Class
+        Create New Batch
       </Button>
 
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle sx={{ textAlign: 'center' }}>Create New Class</DialogTitle>
+        <DialogTitle sx={{ textAlign: 'center' }}>Create New Batch</DialogTitle>
 
         <DialogContent>
           <DialogContentText>
-            Fill out the form below to Create a new Class.
+            Fill out the form below to Create a new Batch.
           </DialogContentText>
 
           {/* Form Start */}
@@ -169,28 +168,43 @@ const ClassMNG = () => {
             <TextField
               required
               id="outlined-required"
-              type='number'
-              label="Grade"
-              placeholder="e.g., 10"
+              type='text'
+              label="specialization"
+              placeholder="IT / SE/ CSNE / DS"
               fullWidth
+              value={createClassData.specialization}
               margin="normal"
               variant="outlined"
-              onChange={e => handleCreateClassData('grade', e.target.value)}
+              onChange={e => handleCreateClassData('specialization', e.target.value)}
+            />
+            <TextField
+              required
+              id="outlined-required"
+              type='number'
+              label="Year"
+              placeholder="e.g., 4"
+              fullWidth
+              value={createClassData.year}
+              margin="normal"
+              variant="outlined"
+              onChange={e => handleCreateClassData('year', e.target.value)}
             />
 
             {/* Sub Class Input */}
             <TextField
               required
               id="outlined-required"
-              label="Sub Class"
-              placeholder="e.g., A / B"
+              label="Semester"
+              placeholder="e.g., 1 / 2"
               fullWidth
               margin="normal"
               variant="outlined"
+              type='number'
+              value={createClassData.semester}
               inputProps={{
                 maxLength: 1,
               }}
-              onChange={e => handleCreateClassData('subClass', e.target.value)}
+              onChange={e => handleCreateClassData('semester', e.target.value)}
             />
           </div>
           {/* Form Ends Here.. */}
