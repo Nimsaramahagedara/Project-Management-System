@@ -9,7 +9,7 @@ export const getOverview = async (req,res)=>{
         })
 
         const AllTeachers = AllUsers.filter((val)=>{
-            return val.role == 'teacher'
+            return val.role == 'supervisor'
         })
 
         const maleStudents = AllStudents.filter((val)=>{
