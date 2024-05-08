@@ -74,7 +74,7 @@ const GroupRegistrationForm = () => {
 
         const fetchSpec = async () => {
             try {
-                const data = await authAxios.get(`${apiUrl}/class/`);
+                const data = await authAxios.get(`${apiUrl}/specialization/`);
                 setSpec(data.data);
                 console.log(data)
             } catch (error) {

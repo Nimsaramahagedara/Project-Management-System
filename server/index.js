@@ -33,7 +33,7 @@ app.get('/', async (req,res)=>{
 app.use('/pay', FeesRouter);
 //Common Routes
 app.use('/',userRouter);
-app.use('/class', classRoutes);
+app.use('/specialization', classRoutes);
 app.use('/notices', noticeRouter);
 app.use('/subject', subjectRoutes)
 app.use('/activity', ActivityRouter);
