@@ -45,7 +45,7 @@ export const getDataByStudentId = async (req, res) => {
 export const getDataBySupId = async (req, res) => {
     const id = req.loggedInId;
     try {
-        const result = await GroupModel.findOne(
+        const result = await GroupModel.find(
             {$or: [
             { 'supervisor': id },
             { 'coSupervisor': id }

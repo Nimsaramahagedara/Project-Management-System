@@ -6,8 +6,8 @@ import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import LayersIcon from '@mui/icons-material/Layers';
+import FeedIcon from '@mui/icons-material/Feed';
+import GroupsIcon from '@mui/icons-material/Groups';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import GradingIcon from '@mui/icons-material/Grading';
 import TaskIcon from '@mui/icons-material/Task';
@@ -17,11 +17,10 @@ import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { Link } from 'react-router-dom';
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ChatIcon from '@mui/icons-material/Chat';
-
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
 
 export const teacherListItems = (
   <React.Fragment>
@@ -34,14 +33,32 @@ export const teacherListItems = (
       </ListItemButton>
     </Link>
 
-    <Link to={'/dashboard/attendance'}>
+    {/* <Link to={'/dashboard/attendance'}>
       <ListItemButton>
         <ListItemIcon>
           <GradingIcon />
         </ListItemIcon>
         <ListItemText primary="Attendance" />
       </ListItemButton>
+    </Link> */}
+    <Link to={'/dashboard/assignments'}>
+      <ListItemButton>
+        <ListItemIcon>
+          <NoteAddIcon />
+        </ListItemIcon>
+        <ListItemText primary="Assignments" />
+      </ListItemButton>
     </Link>
+
+    <Link to={'/dashboard/supprojectgroups'}>
+      <ListItemButton>
+        <ListItemIcon>
+          <GroupsIcon />
+        </ListItemIcon>
+        <ListItemText primary="Project Groups" />
+      </ListItemButton>
+    </Link>
+
     <Link to={'/dashboard/markings'}>
       <ListItemButton>
         <ListItemIcon>
@@ -68,14 +85,14 @@ export const teacherListItems = (
         <ListItemText primary="Subject" />
       </ListItemButton>
     </Link>
-    <Link to={'/dashboard/email'}>
+    {/* <Link to={'/dashboard/email'}>
       <ListItemButton>
         <ListItemIcon>
           <AlternateEmailIcon />
         </ListItemIcon>
         <ListItemText primary="Contact Parents" />
       </ListItemButton>
-    </Link>
+    </Link> */}
     <Link to={'/dashboard/myclass'}>
       <ListItemButton>
         <ListItemIcon>
