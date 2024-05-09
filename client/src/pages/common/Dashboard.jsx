@@ -168,7 +168,7 @@ export default function Dashboard() {
       case "support": //Support
         setNavlinks(supportListItems);
         break;
-      case "teacher": //Teacher
+      case "supervisor": //Teacher
         setNavlinks(teacherListItems);
         break;
       case "parent": //Parent
@@ -210,7 +210,7 @@ export default function Dashboard() {
             noWrap
             sx={{ flexGrow: 1 }}
           >
-            {userRole == 'admin' ? 'Admin' : userRole == 'support' ? 'Support' : userRole == 'parent' ? 'parent' : 'Teacher'} Dashboard
+            {userRole == 'admin' ? 'Admin' : userRole == 'support' ? 'Support' : userRole == 'parent' ? 'parent' : 'supervisor'} Dashboard
           </Typography>
           <IconButton color="inherit" onClick={toggleNotification}>
             <Badge badgeContent={''} color="secondary">

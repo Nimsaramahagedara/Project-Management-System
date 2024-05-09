@@ -25,6 +25,45 @@ export const getAllGroups = async (req, res) => {
     }
 };
 
+export const getDataByStudentId = async (req, res) => {
+    const id = req.loggedInId;
+    try {
+        const result = await GroupModel.findOne({ 'students.studentId': id })
+            .populate('specialization') 
+            .populate('supervisor') 
+            .populate('coSupervisor')
+            .populate('students.studentId'); 
+
+        if (result) {
+            res.status(200).json(result);
+        }
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
+export const getDataBySupId = async (req, res) => {
+    const id = req.loggedInId;
+    try {
+        const result = await GroupModel.find(
+            {$or: [
+            { 'supervisor': id },
+            { 'coSupervisor': id }
+        ]}
+    )
+            .populate('specialization') 
+            .populate('supervisor') 
+            .populate('coSupervisor')
+            .populate('students.studentId'); 
+
+        if (result) {
+            res.status(200).json(result);
+        }
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
 // Read operation - Get Group by ID
 export const getGroupById = async (req, res) => {
     const { id } = req.params;
