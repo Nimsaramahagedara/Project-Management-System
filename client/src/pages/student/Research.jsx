@@ -5,10 +5,15 @@ import axios from 'axios';
 import authAxios from "../../utils/authAxios";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { apiUrl } from "../../utils/Constants";
+import { uploadFileToCloud } from "../../utils/CloudinaryConfig";
 
 
 export default function Research() {
     const [members, setMembers] = useState([]);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [previewImage, setPreviewImage] = useState("");
+    const [isUploading, setUploading] = useState(false)
     const [formData, setFormData] = useState({
         title: "",
         student1: "",
@@ -24,7 +29,7 @@ export default function Research() {
         h5IndexLink: "",
         hIndexLink: "",
         scopusSiteLink: "",
-        imageLinkOfAcceptanceLetter: "",
+        imageLinkOfAcceptanceLetter: previewImage,
     });
 
     const handleChange = (event) => {
@@ -38,7 +43,7 @@ export default function Research() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:510/research/', formData);
+            const response = await axios.post(`${apiUrl}/research/`, formData);
             if (response.status === 200) {
                 console.log("Research Paper Submitted successfully!");
                 // Toast success message
@@ -54,15 +59,21 @@ export default function Research() {
     };
 
 
-    const [selectedFile, setSelectedFile] = useState(null);
 
-    const handleImageUpload = (event) => {
+
+    const handleImageUpload = async (event) => {
+        console.log('file change');
         const file = event.target.files[0]; // Get the selected file from the input
 
         if (file) {
             // Check if the selected file is an image
             if (file.type.startsWith('image/')) {
                 setSelectedFile(file); // Set the selected file in state
+                setUploading(true)
+                const resp = await uploadFileToCloud(file)
+                setPreviewImage(resp)
+                setUploading(false)
+
             } else {
                 // Handle the case when the selected file is not an image
                 alert('Please select an image file.');
@@ -71,9 +82,10 @@ export default function Research() {
     };
 
 
+
     const GetMyGroup = async () => {
         try {
-            const res = await authAxios.get("http://localhost:510/group/mygroup");
+            const res = await authAxios.get(`${apiUrl}/group/mygroup`);
             setMembers(res.data);
             console.log(res.data);
         } catch (error) {
@@ -83,7 +95,7 @@ export default function Research() {
     const [sup, setSup] = useState([])
     const GetSup = async () => {
         try {
-            const res = await authAxios.get("http://localhost:510/user/get-all-supervisors");
+            const res = await authAxios.get(`${apiUrl}/user/get-all-supervisors`);
             setSup(res.data);
             console.log(res.data);
         } catch (error) {
@@ -93,7 +105,7 @@ export default function Research() {
     const [cosup, setCoSup] = useState([])
     const GetCoSup = async () => {
         try {
-            const res = await authAxios.get("http://localhost:510/user/get-all-cosupervisors");
+            const res = await authAxios.get(`${apiUrl}/user/get-all-cosupervisors`);
             setCoSup(res.data);
             console.log(res.data);
         } catch (error) {
@@ -475,6 +487,8 @@ export default function Research() {
 
 
                                     <div className="col mt-10">
+
+
                                         <label className="block text-sm font-medium text-slate-500" htmlFor="acceptanceLetterUpload">
                                             Upload Acceptance Letter
                                         </label>
@@ -487,6 +501,9 @@ export default function Research() {
                                             name="acceptanceLetterUpload"
                                             onChange={handleImageUpload} // Call function to handle image upload
                                         />
+                                        <div className="w-20 h-20">
+                                            <img src={previewImage} alt={isUploading ? 'Uploading....' : 'Image'} className="w-full h-full object-cover" />
+                                        </div>
                                     </div>
 
 
