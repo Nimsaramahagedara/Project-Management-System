@@ -48,6 +48,7 @@ import Chat from './pages/teacher/Chat';
 import MessageTeacher from './pages/student/Message';
 import GroupRegistrationForm from './pages/student/GroupRegistrationForm'
 import ApproveGroupRegistration from './pages/admin/ApproveGroupRegistration'
+import Research from './pages/student/Research'
 
 
 function App() {
@@ -111,6 +112,7 @@ function App() {
             <Route path='notices' element={<Notices2 />} />
             <Route path='profile' element={<StProfile />} />
             <Route path='message' element={<MessageTeacher />} />
+            <Route path='research' element={<Research />} />
 
 
           </Route>
