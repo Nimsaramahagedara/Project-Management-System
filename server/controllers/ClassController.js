@@ -89,7 +89,7 @@ export const getStudentsInClass = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const allStudents = await UserModel.find({ role: 'student', classId: id });
+        const allStudents = await UserModel.find({ role: 'student', specialization: id });
         if (!allStudents) {
             throw Error('No Students Or Other Error');
 
