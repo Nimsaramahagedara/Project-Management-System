@@ -12,26 +12,12 @@ export const getOverview = async (req,res)=>{
             return val.role == 'supervisor'
         })
 
-        const maleStudents = AllStudents.filter((val)=>{
-            return val.gender == 'male'
-        })
-
-        const femaleStudents = AllStudents.filter((val)=>{
-            return val.gender == 'female'
-        })
         const AllSubjects = await ProjectModel.find();
-
-
-        
-
 
         const overview = {
             studentCount : AllStudents.length,
             subjectCount: AllSubjects.length,
             teacherCount: AllTeachers.length,
-            maleCount:maleStudents.length,
-            femaleCount:femaleStudents.length
-
         }
 
         res.status(200).json(overview);

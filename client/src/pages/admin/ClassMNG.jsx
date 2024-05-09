@@ -296,9 +296,8 @@ const ClassMNG = () => {
                   <TableCell>No</TableCell>
                   <TableCell>Index No</TableCell>
                   <TableCell>Student Name</TableCell>
-                  <TableCell>DOB</TableCell>
                   <TableCell>Mobile</TableCell>
-                  <TableCell>Address</TableCell>
+              
                   <TableCell>Actions</TableCell>
                 </TableRow>
               </TableHead>
@@ -308,9 +307,8 @@ const ClassMNG = () => {
                     <TableCell style={{ whiteSpace: 'nowrap' }}>{index}</TableCell>
                     <TableCell style={{ whiteSpace: 'nowrap' }}>{student.regNo}</TableCell>
                     <TableCell style={{ whiteSpace: 'nowrap' }}>{student.firstName}</TableCell>
-                    <TableCell style={{ whiteSpace: 'nowrap' }}>{new Date(student.dob).toLocaleDateString()}</TableCell>
                     <TableCell style={{ whiteSpace: 'nowrap' }}>{student.contactNo}</TableCell>
-                    <TableCell style={{ whiteSpace: 'nowrap' }}>{student.address}</TableCell>
+         
                     <TableCell style={{ whiteSpace: 'nowrap' }}>
                       {/* <Button variant="contained" color="primary" sx={{ marginRight: 2 }}>
                         Update

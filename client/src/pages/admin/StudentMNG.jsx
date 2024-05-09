@@ -90,6 +90,7 @@ const StudentMNG = () => {
   const handleView = async (row) => {
     setSelectedClass(row);
     const allStudents = await authAxios.get(`${apiUrl}/specialization/get-students/${row._id}`);
+    console.log(allStudents);
     setViewData(allStudents.data);
     setViewOpen(true);
   };
@@ -390,7 +391,7 @@ const StudentMNG = () => {
                 <TableRow key={index}>
                   <TableCell>Y{row.year} S{row.semester}</TableCell>
                   <TableCell>{row.specialization}</TableCell>
-                  <TableCell>{row.studentCount} /40</TableCell>
+                  <TableCell>{row.studentCount}</TableCell>
                   <TableCell>
                     <Button
                       variant="contained"
@@ -424,7 +425,7 @@ const StudentMNG = () => {
                   <TableCell>Student Name</TableCell>
                   <TableCell>DOB</TableCell>
                   <TableCell>Mobile</TableCell>
-                  <TableCell>Address</TableCell>
+             
                   <TableCell>Actions</TableCell>
                 </TableRow>
               </TableHead>
@@ -436,7 +437,6 @@ const StudentMNG = () => {
                     <TableCell style={{ whiteSpace: 'nowrap' }}>{student.firstName + ' ' + student.lastName}</TableCell>
                     <TableCell style={{ whiteSpace: 'nowrap' }}>{new Date(student.dob).toLocaleDateString()}</TableCell>
                     <TableCell style={{ whiteSpace: 'nowrap' }}>{student.contactNo}</TableCell>
-                    <TableCell style={{ whiteSpace: 'nowrap' }}>{student.address}</TableCell>
     
                     <TableCell style={{ whiteSpace: 'nowrap' }}>
                       <Button variant="contained" color="primary" sx={{ marginRight: 2 }}

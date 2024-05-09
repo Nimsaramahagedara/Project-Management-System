@@ -34,7 +34,7 @@ const SubjectMNG = ({ ClassList }) => {
 
   const getAllTeachers = async () => {
     try {
-      const allT = await authAxios.get(`${apiUrl}/admin/get-all-teachers`);
+      const allT = await authAxios.get(`${apiUrl}/admin/get-all-supervisors`);
       setAllTeachers(allT.data);
     } catch (error) {
       toast.error(error.response.data.message)
