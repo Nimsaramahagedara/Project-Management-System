@@ -1,3 +1,4 @@
+import RegisterTempModel from "../models/GroupModel.js";
 import MarksModel from "../models/MarksModel.js";
 import ProjectModel from "../models/ProjectModel.js";
 
@@ -26,9 +27,11 @@ export const getAllSubjectsInClass = async (req, res) => {
             throw Error('Please Provide ClassId as Params');
         }
 
-        const allSubjects = await ProjectModel.find({classId}).populate('teachBy');
+        const allSubjects = await RegisterTempModel.find({specialization:classId}).populate('students');
+        console.log(allSubjects);
         res.status(200).json(allSubjects);
     } catch (error) {
+        console.log(error);
         res.status(500).json({ message: error.message });
     }
 }
