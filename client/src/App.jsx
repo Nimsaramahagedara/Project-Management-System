@@ -51,6 +51,7 @@ import ApproveGroupRegistration from './pages/admin/ApproveGroupRegistration'
 import Assignments from './pages/teacher/Assignments'
 import SupProjectGroups from './pages/teacher/SupProjectGroups'
 import Submissions from './pages/teacher/Submissions'
+import Research from './pages/student/Research'
 
 
 function App() {
@@ -115,6 +116,7 @@ function App() {
             <Route path='notices' element={<Notices2 />} />
             <Route path='profile' element={<StProfile />} />
             <Route path='message' element={<MessageTeacher />} />
+            <Route path='research' element={<Research />} />
 
 
           </Route>

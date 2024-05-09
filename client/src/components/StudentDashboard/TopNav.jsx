@@ -46,11 +46,14 @@ const TopNav = () => {
                 </Link>
                 <Link to={'/portal/message'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
                     Request Advice
-                    </Link>
+                </Link>
+                <Link to={'/portal/research'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
+                    Research
+                </Link>
                 <Link to={'/portal/profile'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
                     Profile
                 </Link>
-                
+
             </div>
             <div className={`lg:hidden bg-gray-300 relative`}>
                 <button className='p-5 ' onClick={handleMenuExpand}><MenuIcon /></button>
@@ -71,12 +74,12 @@ const TopNav = () => {
                         Notices
                     </Link>
                     <Link to={'/portal/message'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
-                    Request Advice
+                        Request Advice
                     </Link>
                     <Link to={'/portal/profile'} onClick={handleMenuExpand} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
                         Profile
                     </Link>
-                    
+
 
                 </div>
             </div>
