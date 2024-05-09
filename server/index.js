@@ -16,6 +16,7 @@ import MarkRouter from './routes/MarkRoutes.js';
 import FeesRouter from './routes/FeesRoutes.js';
 import registerTempRouter from './routes/RegisterTempRoutes.js';
 import groupRouter from './routes/GroupRoutes.js';
+import researchRouter from './routes/ResearchRoutes.js';
 import assignmentRouter from './routes/AssignmentRoutes.js';
 dotenv.config();
 
@@ -52,6 +53,8 @@ app.use('/admin',adminRouter);
 app.use('/registerTemp',registerTempRouter);
 //groupRouter Routes
 app.use('/group',groupRouter);
+//Research Routes
+app.use('/research',researchRouter);
 //assignmentRouter Routes
 app.use('/assignment',assignmentRouter);
 

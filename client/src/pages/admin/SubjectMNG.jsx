@@ -34,7 +34,7 @@ const SubjectMNG = ({ ClassList }) => {
 
   const getAllTeachers = async () => {
     try {
-      const allT = await authAxios.get(`${apiUrl}/admin/get-all-teachers`);
+      const allT = await authAxios.get(`${apiUrl}/admin/get-all-supervisors`);
       setAllTeachers(allT.data);
     } catch (error) {
       toast.error(error.response.data.message)
@@ -165,8 +165,10 @@ const SubjectMNG = ({ ClassList }) => {
               <TableHead>
                 <TableRow>
                   <TableCell>No</TableCell>
-                  <TableCell>Subject Name</TableCell>
-                  <TableCell>Teacher</TableCell>
+                  <TableCell>Project Name</TableCell>
+                  <TableCell>Research Area</TableCell>
+                  <TableCell>Supervisor</TableCell>
+                  <TableCell>Co-Supervisor</TableCell>
                   <TableCell>Actions</TableCell>
                 </TableRow>
               </TableHead>
@@ -174,9 +176,11 @@ const SubjectMNG = ({ ClassList }) => {
                 {viewData.map((subject, index) => (
                   <TableRow key={index}>
                     <TableCell style={{ whiteSpace: 'nowrap' }}>{index}</TableCell>
-                    <TableCell style={{ whiteSpace: 'nowrap' }}>{subject.subName}</TableCell>
-                    <TableCell style={{ whiteSpace: 'nowrap' }}>{subject.teachBy && subject.teachBy.lastName}</TableCell>
-
+                    <TableCell style={{ whiteSpace: 'nowrap' }}>{subject.projectTitle}</TableCell>
+                    <TableCell style={{ whiteSpace: 'nowrap' }}>{subject.researchArea}</TableCell>
+                    <TableCell>Supervisor</TableCell>
+                    <TableCell>Co-Supervisor</TableCell>
+                    <TableCell>Members</TableCell>
                     <TableCell style={{ whiteSpace: 'nowrap' }}>
                       <Button variant="contained" color="primary" sx={{ marginRight: 2 }} onClick={() => handleUpdateModal(subject._id)}>
                         Update
