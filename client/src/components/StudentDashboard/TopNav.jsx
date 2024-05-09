@@ -29,11 +29,17 @@ const TopNav = () => {
                 <Link to={'/portal'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
                     Home
                 </Link>
-                <Link to={'/portal/class'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
+                {/* <Link to={'/portal/class'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
                     Class
-                </Link>
-                <Link to={'/portal/subject'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
+                </Link> */}
+                {/* <Link to={'/portal/subject'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
                     Subjects
+                </Link> */}
+                <Link to={'/portal/myGroup'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
+                    Project Group
+                </Link>
+                <Link to={'/portal/assignments'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
+                    Assignments
                 </Link>
                 <Link to={'/portal/marks'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
                     Marks
@@ -44,12 +50,15 @@ const TopNav = () => {
                         <span className='w-6 p-1 h-6'>{''}</span>
                     </span>
                 </Link>
-                <Link to={'/portal/message'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
+                {/* <Link to={'/portal/message'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
                     Request Advice
-                </Link>
+
+                    </Link> */}
+
                 <Link to={'/portal/research'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
                     Research
                 </Link>
+
                 <Link to={'/portal/profile'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
                     Profile
                 </Link>
