@@ -48,6 +48,9 @@ import Chat from './pages/teacher/Chat';
 import MessageTeacher from './pages/student/Message';
 import GroupRegistrationForm from './pages/student/GroupRegistrationForm'
 import ApproveGroupRegistration from './pages/admin/ApproveGroupRegistration'
+import Assignments from './pages/teacher/Assignments'
+import SupProjectGroups from './pages/teacher/SupProjectGroups'
+import Submissions from './pages/teacher/Submissions'
 import Research from './pages/student/Research'
 
 
@@ -74,12 +77,13 @@ function App() {
             <Route path='groupApprove' element={<ApproveGroupRegistration />} />
 
             {/* Supervisor Routes */}
-            <Route path='attendance' element={<Attendence />} />
+            <Route path='supprojectgroups' element={<SupProjectGroups />} />
             <Route path='markings' element={<Markings />} />
             <Route path='notices' element={<Notices />} />
             <Route path='subject' element={<SubjCreate />} />
             <Route path='overview' element={<TOverview />} />
-            <Route path='email' element={<ContactParent />} />
+            <Route path='assignments' element={<Assignments />} />
+            <Route path='submissions/:id' element={<Submissions />} />
             <Route path='profile' element={<Profile />} />
             <Route path='myclass' element={<MyClass />} />
             <Route path='mysub/:id/:subject/:grade' element={<MySubject />} />
