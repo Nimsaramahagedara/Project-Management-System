@@ -53,8 +53,8 @@ const TOverview = () => {
   }
 
   useEffect(()=>{
-    getOverview();
-    getAttendance();
+    // getOverview();
+    // getAttendance();
     setDays(countAcademicDays())
   },[])
 
@@ -79,11 +79,11 @@ const TOverview = () => {
   
   return (
     <Container maxWidth={'800px'} >
-      {
+      {/* {
         isLoading ? <Loader/> : <></>
-      }
+      } */}
       <WelcomeCardTeacher/>
-      <Box component={'div'} className='flex justify-between items-center'>
+      {/* <Box component={'div'} className='flex justify-between items-center'>
         <SimpleCard name={'Attendance'} to={'attendance'} count={attendance} icon={<GradingIcon color='primary' fontSize='large'/>}/>
         <SimpleCard name={'Subjects'} to={'subject'} count={subjects} icon={<ContactsIcon color='error' fontSize='large'/>}/>
         <SimpleCard name={'Fasility Fee'} to={'overview'} count={balance.balance} icon={<AccountBalanceWalletIcon color='secondary' fontSize='large'/>}/>
@@ -106,7 +106,7 @@ const TOverview = () => {
             <ActiveAssignments/>
           </Item>
         </Grid>
-      </Grid>
+      </Grid> */}
     </Container>
   )
 }

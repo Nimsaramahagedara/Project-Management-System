@@ -51,6 +51,8 @@ import ApproveGroupRegistration from './pages/admin/ApproveGroupRegistration'
 import Assignments from './pages/teacher/Assignments'
 import SupProjectGroups from './pages/teacher/SupProjectGroups'
 import Submissions from './pages/teacher/Submissions'
+import ProjectGroup from './pages/student/ProjectGroup'
+import StdAssignment from './pages/student/StdAssignment'
 
 
 function App() {
@@ -108,6 +110,8 @@ function App() {
           <Route path='/portal' element={<StudentDashboard />}>
             <Route path='' element={<StOverview />} />
             <Route path='class' element={<ClassPage />} />
+            <Route path='assignments' element={<StdAssignment />} />
+            <Route path='myGroup' element={<ProjectGroup />} />
             <Route path='subjects' element={<SingleModuleViewPage />} />
             <Route path='subject/:id' element={<SingleModuleViewPage />} />
             <Route path='subject' element={<ModulePage />} />

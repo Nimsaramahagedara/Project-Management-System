@@ -37,7 +37,6 @@ const Assignments = () => {
     description: '',
   });
 
-
   const [updateFormData, setUpdateFormData] = useState({
     _id: '',
     title: '',
