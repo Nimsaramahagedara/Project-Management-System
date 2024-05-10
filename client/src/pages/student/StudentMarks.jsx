@@ -45,90 +45,25 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const StudentMarks = () => {
 
   const [isLoading, setIsLoading] = useState(true);
-  const [term1Marks, setTerm1Marks] = useState([]);
-  const [term2Marks, setTerm2Marks] = useState([]);
-  const [term3Marks, setTerm3Marks] = useState([]);
-  const [highestMarks, setHighestMarks] = useState(null);
-  const [highestMarksSubject, setHighestMarksSubject] = useState(null);
-  const [termWithHighestSum, setTermWithHighestSum] = useState(null);
-  const [sum, setAvg] = useState([0, 0, 0]);
+  const [projects, setProjects] = useState([])
+  const [term1Marks, setTerm1Marks] = useState([])
+  const [term2Marks, setTerm2Marks] = useState([])
 
-  const getUserData = async () => {
+  const getAllProjects = async () => {
     try {
-      const user = await authAxios.get(`${apiUrl}/get-user`);
-      return user.data._id;
+      const proj = await authAxios.get(`${apiUrl}/group`);
+      console.log(proj.data);
+      setProjects(proj.data)
+      setIsLoading(false)
     } catch (error) {
       throw error.response.data.message;
     }
   };
   
-  const getMarksByStudent = async (studentId) => {
-    try {
-      const result = await authAxios.get(`${apiUrl}/student/get-marks-by-student/${studentId}`);
-      return result.data;
-    } catch (error) {
-      throw error.response.data.message;
-    }
-  };
-  
-  const separateMarksByTerm = (marks) => {
-    const term1Data = marks.filter(mark => mark.term === 1);
-    const term2Data = marks.filter(mark => mark.term === 2);
-    const term3Data = marks.filter(mark => mark.term === 3);
-    return [term1Data, term2Data, term3Data];
-  };
-  
-  const calculateAverage = (termData) => {
-    const sumOfMarks = termData.reduce((sum, mark) => sum + mark.mark, 0);
-    return termData.length > 0 ? sumOfMarks / termData.length : 0;
-  };
-  
-  const getHighestMarksForTerm = (termData) => {
-    return termData.reduce((max, mark) => (mark.mark > max.mark ? mark : max), { mark: 0 });
-  };
-  
-  const getMarks = async () => {
-    try {
-      const userId = await getUserData();
-      const marks = await getMarksByStudent(userId);
-  
-      if (marks.length === 0) {
-        setIsLoading(false);
-        return;
-      }
-  
-      const [term1Data, term2Data, term3Data] = separateMarksByTerm(marks);
-  
-      setTerm1Marks(term1Data);
-      setTerm2Marks(term2Data);
-      setTerm3Marks(term3Data);
-  
-      const avgTerm1 = calculateAverage(term1Data);
-      const avgTerm2 = calculateAverage(term2Data);
-      const avgTerm3 = calculateAverage(term3Data);
-  
-      const termWithHighestSum = Math.max(avgTerm1, avgTerm2, avgTerm3);
-  
-      const highestTerm = getHighestMarksForTerm(
-        termWithHighestSum === avgTerm1 ? term1Data :
-          (termWithHighestSum === avgTerm2 ? term2Data : term3Data)
-      );
-  
-      setAvg([avgTerm1, avgTerm2, avgTerm3]);
-      setTermWithHighestSum(highestTerm.term);
-      setHighestMarks(highestTerm.mark);
-      setHighestMarksSubject(highestTerm.subId.subName);
-  
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-      setIsLoading(false);
-      toast.error('Marks Not published yet');
-    }
-  };
-  
+
   useEffect(() => {
-    getMarks();
+    setIsLoading(true)
+    getAllProjects();
   }, []);
 
   return (
@@ -139,9 +74,9 @@ const StudentMarks = () => {
           <div className='px-5 space-y-5'>
             <div className='flex items-center justify-evenly flex-wrap'>
               {/* <ColorCard name={'Your Current Average'} count={55.5} bgColor={'#eafce8'} icon={<FunctionsIcon />} /> */}
-              <ColorCard name={'Highest Mark'} count={highestMarks} bgColor={'#eafce8'} icon={<StarIcon />} />
+              {/* <ColorCard name={'Highest Mark'} count={highestMarks} bgColor={'#eafce8'} icon={<StarIcon />} />
               <ColorCard name={'Best Performed Subject'} count={highestMarksSubject} bgColor={'#eafce8'} icon={<MenuBookIcon />} />
-              <ColorCard name={'Best Performed Term'} count={termWithHighestSum + '/2'} bgColor={'#eafce8'} icon={<AcUnitIcon />} />
+              <ColorCard name={'Best Performed Term'} count={termWithHighestSum + '/2'} bgColor={'#eafce8'} icon={<AcUnitIcon />} /> */}
 
             </div>
 
@@ -159,7 +94,7 @@ const StudentMarks = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {term1Marks.map((row, index) => (
+                    {term1Marks?.map((row, index) => (
                       <StyledTableRow key={row.subId.subName}>
                         <StyledTableCell component="th" scope="row">
                           {index + 1}
@@ -188,7 +123,7 @@ const StudentMarks = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {term2Marks.map((row, index) => (
+                    {term2Marks?.map((row, index) => (
                       <StyledTableRow key={row.subId.subName}>
                         <StyledTableCell component="th" scope="row">
                           {index + 1}
