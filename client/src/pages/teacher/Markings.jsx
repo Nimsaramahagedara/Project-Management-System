@@ -180,7 +180,7 @@ const Markings = () => {
             primary={'Marks : ' + selectedProject?.marks}
           />
           <br />
-          <h1>Give Marks</h1>
+          <h1>Give/Update Marks</h1>
           <TextField value={mark} onChange={(e)=>setMark(e.target.value)} ></TextField>
           <br />
           <br />
