@@ -43,7 +43,7 @@ export default function WelcomeCardTeacher() {
             Welcome, {firstName}
           </Typography>
           <Typography variant="subtitle1" component="div">
-              Teacher Dashboard
+            Supervisor Dashboard
           </Typography>
   
           {currentTime.toUTCString()}
