@@ -210,7 +210,7 @@ export default function Dashboard() {
             noWrap
             sx={{ flexGrow: 1 }}
           >
-            {userRole == 'admin' ? 'Admin' : userRole == 'support' ? 'Support' : userRole == 'parent' ? 'parent' : 'supervisor'} Dashboard
+            {userRole == 'coordinator' ? 'Co-ordinator' : userRole == 'supervisor' ? 'Supervisor' :  'Examiner'} Dashboard
           </Typography>
           <IconButton color="inherit" onClick={toggleNotification}>
             <Badge badgeContent={''} color="secondary">

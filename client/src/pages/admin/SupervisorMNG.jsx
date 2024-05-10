@@ -239,17 +239,6 @@ const TeacherMNG = () => {
               value={createTeacherFormData.password}
             />
 
-            <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="controlled-radio-buttons-group"
-              value={createTeacherFormData.gender}
-              onChange={(e) => handleCreateChange('gender', e.target.value)}
-            >
-              <FormControlLabel value="female" control={<Radio />} label="Female" />
-              <FormControlLabel value="male" control={<Radio />} label="Male" />
-            </RadioGroup>
-
           </div>
           <DialogActions style={{ justifyContent: 'center' }}>
             <Button onClick={handleClose}>Cancel</Button>

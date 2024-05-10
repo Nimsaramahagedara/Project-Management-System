@@ -5,12 +5,17 @@ import { toast } from 'react-toastify';
 
 export default function ProjectGroup() {
     const [data, setData] = useState({});
+    const [statusData, setStatusData] = useState({});
 
     const getUserDetails = async () => {
         try {
             const res = await authAxios.get(`${apiUrl}/group/stdGroup`);
             setData(res.data);
-            console.log(res.data);
+            if (res){
+            const stat = await authAxios.get(`${apiUrl}/research/std`);
+            setStatusData(stat.data.status);
+            console.log(statusData)
+            }
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.message);
@@ -53,6 +58,10 @@ export default function ProjectGroup() {
                         </div>
                     ))}
                 </div>
+            </div>
+            <div className="mb-2">
+                <label className="font-semibold">Research Status: </label>
+                <span>{statusData ? (statusData === true ? 'Approved' : 'Declined') : 'Pending'}</span>
             </div>
         </div>
     );

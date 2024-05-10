@@ -57,6 +57,7 @@ import StdAssignment from './pages/student/StdAssignment'
 
 import Research from './pages/student/Research'
 import MySubmissions from './pages/student/MySubmissions'
+import ApproveResearch from './pages/admin/ApproveResearch'
 
 
 
@@ -81,6 +82,7 @@ function App() {
             <Route path='publishNotice' element={<AdminPublishNotices />} />
             <Route path='notifications' element={<Notifications />} />
             <Route path='groupApprove' element={<ApproveGroupRegistration />} />
+            <Route path='researchApprove' element={<ApproveResearch />} />
 
             {/* Supervisor Routes */}
             <Route path='supprojectgroups' element={<SupProjectGroups />} />

@@ -306,7 +306,7 @@ const AdminPublishNotices = () => {
 
                             <FormControlLabel
                               control={<Radio />}
-                              label="Teachers"
+                              label="Supervisors"
                               onChange={() => setUpdateFormData({ ...updateFormData, audience: 'teacher' })}
                               checked={updateFormData.audience === 'teacher'}
                             />
@@ -315,12 +315,6 @@ const AdminPublishNotices = () => {
                               label="Students"
                               onChange={() => setUpdateFormData({ ...updateFormData, audience: 'student' })}
                               checked={updateFormData.audience === 'student'}
-                            />
-                            <FormControlLabel
-                              control={<Radio />}
-                              label="Parents"
-                              onChange={() => setUpdateFormData({ ...updateFormData, audience: 'parent' })}
-                              checked={updateFormData.audience === 'parent'}
                             />
                             <FormControlLabel
                               control={<Radio />}
