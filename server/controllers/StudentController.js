@@ -165,8 +165,8 @@ export const getClassMatesUsingStId = async (req, res) => {
 export const getStudentOverview = async (req, res) => {
   try {
     const { loggedInId } = req;
-    const Student = await UserModel.findById(loggedInId).populate('classId');
-    const classDetails = Student.classId.grade + ' ' + Student.classId.subClass
+    const Student = await UserModel.findById(loggedInId).populate('specialization');
+    const classDetails = Student.specialization.specialization
 
     res.status(200).json({ className: classDetails });
   } catch (error) {

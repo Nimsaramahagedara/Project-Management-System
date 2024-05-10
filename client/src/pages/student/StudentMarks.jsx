@@ -145,7 +145,7 @@ const StudentMarks = () => {
 
             </div>
 
-            <Typography color={colors.red[900]}>Term 1</Typography>
+            <Typography color={colors.red[900]}>Semester 1</Typography>
             <div className='w-full overflow-auto'>
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 700 }} aria-label="customized table" size='small'>
@@ -174,7 +174,7 @@ const StudentMarks = () => {
                 </Table>
               </TableContainer>
             </div>
-            <Typography color={colors.red[700]} >Term 2</Typography>
+            <Typography color={colors.red[700]} >Semester 2</Typography>
             <div className='w-full overflow-auto'>
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 700 }} aria-label="customized table" size='small'>
@@ -197,35 +197,6 @@ const StudentMarks = () => {
                         {/* <StyledTableCell align="right">{row.fat}</StyledTableCell> */}
                         <StyledTableCell align="right">{row.mark}</StyledTableCell>
                         <StyledTableCell align="right">{`${sum[1]}`}</StyledTableCell>
-                      </StyledTableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </div>
-            <Typography color={colors.red[500]}>Term 3</Typography>
-            <div className='w-full overflow-auto'>
-              <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 700 }} aria-label="customized table" size='small'>
-                  <TableHead>
-                    <TableRow>
-                      <StyledTableCell>#</StyledTableCell>
-                      <StyledTableCell align="right">Subject Name</StyledTableCell>
-                      {/* <StyledTableCell align="right">Subject Code</StyledTableCell> */}
-                      <StyledTableCell align="right">Makrs</StyledTableCell>
-                      <StyledTableCell align="right">Average</StyledTableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {term3Marks.map((row, index) => (
-                      <StyledTableRow key={row.subId.subName}>
-                        <StyledTableCell component="th" scope="row">
-                          {index + 1}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">{row.subId.subName}</StyledTableCell>
-                        {/* <StyledTableCell align="right">{row.fat}</StyledTableCell> */}
-                        <StyledTableCell align="right">{row.mark}</StyledTableCell>
-                        <StyledTableCell align="right">{`${sum[2]}`}</StyledTableCell>
                       </StyledTableRow>
                     ))}
                   </TableBody>
