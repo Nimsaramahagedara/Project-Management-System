@@ -51,7 +51,7 @@ const StProfile = () => {
   useEffect(() => {
     const getUserDetails = async () => {
       try {
-        const data = await authAxios.get(`${apiUrl}/student/`)
+        const data = await authAxios.get(`${apiUrl}/get-user/`)
         setStudent(data.data);
         setIsLoading(false);
       } catch (error) {
