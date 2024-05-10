@@ -69,7 +69,7 @@ const SubjectMNG = ({ ClassList }) => {
 
   const getSubjectsInClass = async (id) => {
     const subjectsinClass = await authAxios.get(`${apiUrl}/subject/${id}`);
-    // console.log(inClassStudents.data);
+    console.log(subjectsinClass.data);
     setViewData(subjectsinClass.data);
   }
 
@@ -178,9 +178,9 @@ const SubjectMNG = ({ ClassList }) => {
                     <TableCell style={{ whiteSpace: 'nowrap' }}>{index}</TableCell>
                     <TableCell style={{ whiteSpace: 'nowrap' }}>{subject.projectTitle}</TableCell>
                     <TableCell style={{ whiteSpace: 'nowrap' }}>{subject.researchArea}</TableCell>
-                    <TableCell>Supervisor</TableCell>
-                    <TableCell>Co-Supervisor</TableCell>
-                    <TableCell>Members</TableCell>
+                    <TableCell>{subject?.supervisor  ?  subject.supervisor.firstName : ''}</TableCell>
+                    <TableCell>{subject?.coSupervisor  ?  subject.coSupervisor.firstName : ''}</TableCell>
+                    {/* <TableCell>Members</TableCell> */}
                     <TableCell style={{ whiteSpace: 'nowrap' }}>
                       <Button variant="contained" color="primary" sx={{ marginRight: 2 }} onClick={() => handleUpdateModal(subject._id)}>
                         Update
@@ -194,7 +194,7 @@ const SubjectMNG = ({ ClassList }) => {
                 {/* Add a row for total number of subjects */}
                 <TableRow>
                   <TableCell colSpan={6} align="right">
-                    <strong>Total number of subjects:</strong>
+                    <strong>Total number of Projects:</strong>
                   </TableCell>
                   <TableCell align="center">
                     <strong>{viewData.length}</strong>

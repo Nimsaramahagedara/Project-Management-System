@@ -140,7 +140,7 @@ const ClassMNG = () => {
   return (
     <div className='relative'>
       <div className='w-full flex items-end justify-end'>
-        <Button variant='contained' color='error' onClick={() => showGradeUp()}> Grade Up </Button>
+        {/* <Button variant='contained' color='error' onClick={() => showGradeUp()}> Grade Up </Button> */}
       </div>
       <AdminWelcomeCard />
       <div style={{ textAlign: 'center' }}>

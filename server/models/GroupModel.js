@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const RegisterTempSchema = new mongoose.Schema({
+const groupSchema = new mongoose.Schema({
     projectTitle: {
         type: String,
         required: true
@@ -44,6 +44,6 @@ const RegisterTempSchema = new mongoose.Schema({
     // }
 }, { timestamps: true });
 
-const RegisterTempModel = mongoose.model("ProjectGroup", RegisterTempSchema);
+const RegisterTempModel = mongoose.model("ProjectGroup", groupSchema);
 
 export default RegisterTempModel;
