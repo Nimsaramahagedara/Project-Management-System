@@ -13,6 +13,9 @@ const SubmissionSchema = new mongoose.Schema({
         type: String,
         required:true
     },
+    file:{
+        type:String,
+    },
     remark: {
         type: String,
         required:true

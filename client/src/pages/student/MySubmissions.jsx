@@ -13,6 +13,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { apiUrl } from '../../utils/Constants';
 import { toast } from 'react-toastify';
 import authAxios from '../../utils/authAxios';
+import { Link } from 'react-router-dom';
 
 export default function MySubmissions() {
 
@@ -74,6 +75,7 @@ export default function MySubmissions() {
               <TableCell>No</TableCell>
               <TableCell>Title</TableCell>
               <TableCell>Submission</TableCell>
+              <TableCell>File</TableCell>
               <TableCell>Remark</TableCell>
               <TableCell></TableCell>
             </TableRow>
@@ -84,6 +86,7 @@ export default function MySubmissions() {
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>{row.assId ? `${row.assId.title}` : 'N/A'}</TableCell>
                 <TableCell>{row.submission}</TableCell>
+                <TableCell><Link to={row.file} target='_blank'>{row.file ? 'Download File' : 'File Not Available'}</Link></TableCell>
                 <TableCell>{row.remark}</TableCell>
                 <TableCell>
                   <Button variant="outlined" startIcon={<VisibilityIcon />} color="secondary"
