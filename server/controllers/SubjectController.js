@@ -27,8 +27,8 @@ export const getAllSubjectsInClass = async (req, res) => {
             throw Error('Please Provide ClassId as Params');
         }
 
-        const allSubjects = await RegisterTempModel.find({specialization:classId}).populate('students');
-        console.log(allSubjects);
+        const allSubjects = await RegisterTempModel.find({specialization:classId}).populate('students').populate("supervisor").populate("coSupervisor");
+        console.log('All Projects : ' ,allSubjects);
         res.status(200).json(allSubjects);
     } catch (error) {
         console.log(error);
