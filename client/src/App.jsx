@@ -29,7 +29,7 @@ import NotFound from './pages/common/NotFound'
 import StProfile from './pages/student/StProfile'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import SupportTeam from './pages/admin/SupportTeam';
+import SupportTeam from './pages/admin/Examiner';
 import ParentHome from './pages/parent/ParentHome';
 import ChildMarks from './pages/parent/ChildMarks';
 import FacilityFee from './pages/parent/FacilityFee';
