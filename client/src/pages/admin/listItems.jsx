@@ -21,6 +21,8 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ChatIcon from '@mui/icons-material/Chat';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import Groups from '@mui/icons-material/Groups';
+import Task from '@mui/icons-material/Task';
 
 export const teacherListItems = (
   <React.Fragment>
@@ -163,9 +165,18 @@ export const coordinatorListItems = (
     <Link to={'/dashboard/groupApprove'}>
       <ListItemButton>
         <ListItemIcon>
-          <DashboardIcon />
+          <Groups />
         </ListItemIcon>
         <ListItemText primary="Approve Group" />
+      </ListItemButton>
+    </Link>
+
+    <Link to={'/dashboard/researchApprove'}>
+      <ListItemButton>
+        <ListItemIcon>
+          <Task />
+        </ListItemIcon>
+        <ListItemText primary="Approve Research" />
       </ListItemButton>
     </Link>
 
@@ -219,7 +230,7 @@ export const studentListItems = (
         <ListItemText primary="Marks" />
       </Link>
 
-      </ListItemButton>
+    </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
         <ChatIcon />
@@ -328,29 +339,29 @@ export const secondaryListItems = (
 
 export const parentListItems = (
   <React.Fragment>
-      <Link to={'/dashboard/paroverview'}>
-    <ListItemButton>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
+    <Link to={'/dashboard/paroverview'}>
+      <ListItemButton>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
         <ListItemText primary="Dashboard" />
-    </ListItemButton>
+      </ListItemButton>
     </Link>
     <Link to={'/dashboard/childmarks'}>
-    <ListItemButton>
-      <ListItemIcon>
-        <DirectionsWalkIcon />
-      </ListItemIcon>
+      <ListItemButton>
+        <ListItemIcon>
+          <DirectionsWalkIcon />
+        </ListItemIcon>
         <ListItemText primary="Child Marks" />
-    </ListItemButton>
+      </ListItemButton>
     </Link>
     <Link to={'/dashboard/facilityfee'}>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
+      <ListItemButton>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
         <ListItemText primary="Facility Fee" />
-    </ListItemButton>
+      </ListItemButton>
     </Link>
 
     {/* <ListItemButton>

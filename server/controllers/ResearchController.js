@@ -22,10 +22,20 @@ export const createResearch = async (req, res) => {
         const newResearch = await ResearchModel.create({
            
             title,
-            student1,
-            student2,
-            student3,
-            student4,
+            students: [
+                {
+                    studentId: student1
+                },
+                {
+                    studentId: student2
+                },
+                {
+                    studentId: student3
+                },
+                {
+                    studentId: student4
+                }
+            ],
             supervisor1,
             supervisor2,
             journalName,
@@ -46,7 +56,18 @@ export const createResearch = async (req, res) => {
 
 export const getAllResearch = async (req, res) => {
     try {
-        const research = await ResearchModel.find();
+        const research = await ResearchModel.find()
+        .populate('students.studentId');
+        res.status(200).json(research);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+export const getResearchByStd = async (req, res) => {
+    const id = req.loggedInId;
+    try {
+        const research = await ResearchModel.findOne({'students.studentId': id});
         res.status(200).json(research);
     } catch (error) {
         res.status(500).json({ message: error.message });

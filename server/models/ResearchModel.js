@@ -6,22 +6,14 @@ const ResearchSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    student1: {
-        type: String,
-        required: true,
-    },
-    student2: {
-        type: String,
-        required: true,
-    },
-    student3: {
-        type: String,
-        required: true,
-    },
-    student4: {
-        type: String,
-        required: true,
-    },
+    students: [
+        {
+            studentId: {
+                type: mongoose.Schema.ObjectId,
+                ref: 'users'
+            }
+        }
+    ],
     supervisor1: {
         type: String,
         required: true,
@@ -51,6 +43,10 @@ const ResearchSchema = new mongoose.Schema({
     },
     imageLinkOfAcceptanceLetter: {
         type: String,
+    },
+    status: {
+        type: Boolean,
+        default: 0,
     },
 
 }, { timestamps: true });

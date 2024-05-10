@@ -232,13 +232,6 @@ const StudentMNG = () => {
 
             />
 
-            {/* Student DOB Input */}
-            <DateInput
-              label='Date of birth'
-              value={createStudentData.dob}
-              onChange={e => handleCreateChange('dob', e)}
-            />
-
             {/* Student Email Input */}
             <TextField
               required
@@ -295,68 +288,6 @@ const StudentMNG = () => {
               variant="outlined"
             />
 
-            <TextField
-              required
-              id="outlined-required"
-              label="Contact Number"
-              placeholder="e.g., guradian@gmail.com"
-              fullWidth
-              margin="normal"
-              variant="outlined"
-              value={createStudentData.contactNo}
-              onChange={e => handleCreateChange('contactNo', e.target.value)}
-
-            />
-
-            {/* Guardian Email Input */}
-            <TextField
-              required
-              id="outlined-required"
-              label="Guardian's Email"
-              placeholder="e.g., guradian@gmail.com"
-              fullWidth
-              margin="normal"
-              variant="outlined"
-              value={createStudentData.parentEmail}
-              onChange={e => handleCreateChange('parentEmail', e.target.value)}
-
-            />
-
-            {/* Student Address Input */}
-            <TextField
-              required
-              id="outlined-required"
-              label="Address"
-              placeholder="e.g., home, village, city"
-              fullWidth
-              margin="normal"
-              variant="outlined"
-              value={createStudentData.address}
-              onChange={e => handleCreateChange('address', e.target.value)}
-
-            />
-
-            <RadioGroup
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="controlled-radio-buttons-group"
-              value={createStudentData.gender}
-              onChange={(e) => handleCreateChange('gender', e.target.value)}
-            >
-              <FormControlLabel value="female" control={<Radio />} label="Female" />
-              <FormControlLabel value="male" control={<Radio />} label="Male" />
-            </RadioGroup>
-
-            <Select
-              fullWidth
-              placeholder='Grade'
-              value={createStudentData.classId}
-              onChange={e => handleCreateChange('classId', e.target.value)}
-            >
-              {AllClasses.map((eachClass, index) => (
-                <MenuItem value={eachClass._id} key={index}>{eachClass.grade + ' - ' + eachClass.subClass}</MenuItem>
-              ))}
-
-            </Select>
           </div>
           {/* Form Ends Here.. */}
 
