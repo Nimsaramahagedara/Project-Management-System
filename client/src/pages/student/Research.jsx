@@ -40,28 +40,28 @@ export default function Research() {
         }));
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         setFormData((prevFormData) => ({
             ...prevFormData,
             imageLinkOfAcceptanceLetter: previewImage
         }));
-    },[previewImage])
+    }, [previewImage])
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             console.log(formData);
             console.log(previewImage);
-            if(!formData.imageLinkOfAcceptanceLetter){
+            if (!formData.imageLinkOfAcceptanceLetter) {
                 throw Error('Image is required')
             }
             const response = await axios.post(`${apiUrl}/research/`, formData);
-            if (response.status === 200) {
-                console.log("Research Paper Submitted successfully!");
-                toast.success("Research Paper Submitted successfully!");
-                // Redirect to '/dashboard/studentDash'
-                <Link to="/dashboard/studentDash">Go to Student Dashboard</Link>
-            }
+
+            console.log("Research Paper Submitted successfully!");
+            toast.success("Research Paper Submitted successfully!");
+            // Redirect to '/dashboard/studentDash'
+            <Link to="/dashboard/studentDash">Go to Student Dashboard</Link>
+
         } catch (error) {
             console.error("Error submitting research paper:", error);
             toast.error("Error submitting research paper. Please try again later.");
@@ -122,7 +122,7 @@ export default function Research() {
                     <div className="smallcard row max-w-5xl mx-auto border rounded-md py-10 px-10">
                         <div className="col-md-6">
                             <form id="itemForm" className="ml-7" onSubmit={handleSubmit}>
-                            <div className="grid grid-cols-2">
+                                <div className="grid grid-cols-2">
                                     <div className="col">
                                         <label
                                             className="block text-sm font-medium text-slate-500"
@@ -144,7 +144,7 @@ export default function Research() {
                                 </div>
                                 <div className="grid grid-cols-2 mt-10">
 
-                                    
+
 
                                     {/*Students */}
                                     <div className="col">
