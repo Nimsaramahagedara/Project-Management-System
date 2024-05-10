@@ -46,8 +46,8 @@ app.use('/marks', MarkRouter);
 app.use('/student', studentRouter);
 //Teacher Routes
 app.use('/teacher', TeacherRouter);
-//Parent Routes
-app.use('/parent', parentRoutes);
+// //Parent Routes
+// app.use('/parent', parentRoutes);
 //Admin Routes
 app.use('/admin',adminRouter);
 //registerTempRouter Routes

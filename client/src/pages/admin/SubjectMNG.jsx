@@ -55,9 +55,9 @@ const SubjectMNG = ({ ClassList }) => {
     axios.get(`${apiUrl}/student/get-subject/${id}`).then((res) => {
       const newObj = {
         _id: res.data?._id,
-        subName: res.data?.subName,
-        classId: res.data?.classId,
-        teachBy: res.data?.teachBy._id
+        subName: res.data?.projectTitle,
+        classId: res.data?.researchArea,
+        teachBy: res.data?.supervisor._id
       }
       setSelectedSubject(newObj);
       setSubjectModal(true)
@@ -191,7 +191,7 @@ const SubjectMNG = ({ ClassList }) => {
                     </TableCell>
                   </TableRow>
                 ))}
-                {/* Add a row for total number of subjects */}
+                {/* Add a row for total number of projects */}
                 <TableRow>
                   <TableCell colSpan={6} align="right">
                     <strong>Total number of Projects:</strong>
@@ -212,7 +212,7 @@ const SubjectMNG = ({ ClassList }) => {
 
       <Dialog open={subjectModal} onClose={handleViewClose} maxWidth="xl">
         <DialogTitle sx={{ textAlign: 'center' }}>
-          Subject Name - {selectedSubject.subName}
+          Project Name - {selectedSubject.subName}
         </DialogTitle>
         {/* <Typography className='text-center' variant='subtitle2'>Class Teacher : {selectedClass.ownedBy !== null ? (selectedClass.ownedBy.firstName + ' ' + selectedClass.ownedBy.lastName) : 'Not Assined'}</Typography> */}
         <DialogContent>
@@ -227,7 +227,7 @@ const SubjectMNG = ({ ClassList }) => {
               required={true}
             />
             <br />
-            <Typography variant='subtitle2'>Teach By</Typography>
+            <Typography variant='subtitle2'>Supervisor</Typography>
             <Select
               fullWidth
               value={selectedSubject.teachBy}

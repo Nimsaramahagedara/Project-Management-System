@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Grid from '@mui/material/Grid';
 import FolderIcon from '@mui/icons-material/Folder';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Typography } from '@mui/material';
+import { colors, TextField, Typography } from '@mui/material';
 import { toast } from 'react-toastify';
 import authAxios from '../../utils/authAxios';
 import { apiUrl } from '../../utils/Constants';
@@ -32,25 +32,26 @@ import {
   Paper,
   FormControlLabel,
 } from '@mui/material';
+import axios from 'axios';
 
 const Markings = () => {
 
   const [refresh, setRefresh] = useState(false);
-  const [subjects, setSubjects] = useState([]);
-  const [rowDialogOpen, setRowDialogOpen] = useState(Array(subjects.length).fill(false));
+  const [projects, setProjects] = useState([]);
+  const [rowDialogOpen, setRowDialogOpen] = useState(Array(projects?.length).fill(false));
   const [maxStudent, setMaxStudent] = useState({});
   const [leastStudent, setLeastStudent] = useState({});
+  const [selectedProject, setSelectedProject] = useState({});
+  const [isOpen, setOpen] = useState(false)
+  const [mark, setMark] = useState('');
 
   const handleClickOpen2 = (index) => {
-    setRowDialogOpen((prev) => {
-      const newState = [...prev];
-      newState[index] = true; // Set the selected row index to true
-      return newState;
-    })
+    setSelectedProject(projects[index])
+    setOpen(true)
   };
 
   const handleClose2 = () => {
-    setRowDialogOpen(Array(subjects.length).fill(false));
+    setRowDialogOpen(Array(projects.length).fill(false));
   };
 
   const Demo = styled('div')(({ theme }) => ({
@@ -58,176 +59,134 @@ const Markings = () => {
   }));
 
 
-  const getSubjectList = async () => {
+  const getProjectList = async () => {
     try {
-      const result = await authAxios.get(`${apiUrl}/teacher/marks/`);
+      const result = await authAxios.get(`${apiUrl}/group/`);
       console.log(result.data);
       if (result) {
 
-        setSubjects(result.data.marksData);
+        setProjects(result.data);
         let mark = 0;
         let min = Infinity;
         let leastSt = {};
-        setLeastStudent( result.data.marksData[0].marks[0]);
-        result.data.marksData[0].marks.forEach((std) => {
-          if (mark < std.mark) {
-            mark = std.mark
-            setMaxStudent(std)
-          }
-          if(min > std.mark){
-            min = std.mark
-            leastSt = std;
-          }
-        })
-        setLeastStudent(leastSt)
-        console.log('Max mark ', mark);
-        //  console.log(subjects);
       } else {
         toast.error('Data Not Available');
       }
     } catch (error) {
-      console.log(error.response.data.message);
+      console.log(error?.response?.data?.message);
     }
   };
 
   useEffect(() => {
 
-    getSubjectList();
+    getProjectList();
   }, [refresh]);
 
-  function generatePDF(subject) {
-    const pdf = new jsPDF();
-
-    // Function to calculate the center position for text
-    const getCenterPosition = (text, fontSize, pageWidth) => {
-      const textWidth = pdf.getTextWidth(text);
-      return (pageWidth - textWidth) / 2;
-    };
-
-    // Center the subject name
-    const subNameCenterX = getCenterPosition(`${subject.subId.subName}`, 12, pdf.internal.pageSize.width);
-    pdf.text(`${subject.subId.subName}`, subNameCenterX, 10);
-
-    // Center the term text
-    const termTextCenterX = getCenterPosition('Term : ' + subject.term, 12, pdf.internal.pageSize.width);
-    pdf.text('Term : ' + subject.term, termTextCenterX, 20);
-
-    const header = [["No", "Reg No", "Name", "Marks"]];
-
-    const data = subject.marks.map((student, index) => [
-      index + 1,
-      student.studentId.regNo,
-      `${student.studentId.firstName} ${student.studentId.lastName}`,
-      student.mark
-    ]);
-
-    // Add table to pdfument
-    pdf.autoTable({
-      startY: 30,
-      head: header,
-      body: data
-    });
-
-    // Download the PDF pdfument
-    pdf.save(`${subject.subId.subName} Term${subject.term}.pdf`);
+  const handleUpdateMarks = async()=>{
+    try {
+      const data = {
+        ...selectedProject,
+        marks:mark
+      }
+      const resp = await axios.put(`${apiUrl}/group/${selectedProject._id}`,data)
+      setMark('')
+      setOpen(false)
+      getProjectList()
+      toast.success('Marks updated')
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 
   return (
     <div>
-      <Typography textAlign={'center'} variant='h5'>Marks of your Subjects</Typography>
-      {/* <Button variant="outlined" style={{ marginRight: '20px' }}>
-        Update Marks
-      </Button>
-
-      <Button variant="outlined">
-        Generate PDF
-      </Button> */}
+      <Typography textAlign={'center'} variant='h5'>Marks for Projects</Typography>
 
       <Box sx={{ flexGrow: 1, maxWidth: "100%" }}>
         <Grid item xs={12} md={6}>
           <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-            Subjects
+            Projects
           </Typography>
-          <Demo>
-            <List>
-              {Array.isArray(subjects) && subjects.map((subject, index) => (
-                <>
-                  <ListItem
-                    secondaryAction={
-                      <IconButton edge="end" aria-label="delete"
-                        onClick={() => handleClickOpen2(index)}>
-                        <VisibilityIcon />
-                      </IconButton>
-                    }
-                  >
-                    <ListItemAvatar>
-                      <Avatar>
-                        <FolderIcon />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={subject.subId.subName}
-                    />
-                    <ListItemText
-                      primary={'Term : ' + subject.term}
-                    />
-                    <Dialog open={rowDialogOpen[index]} onClose={handleClose2}>
-                      <DialogTitle>{subject.subId.subName} Term: {subject.term}</DialogTitle>
-                      <DialogContent>
-                        <Box
-                          component="form"
-                          sx={{
-                            '& .MuiTextField-root': {
-                              m: 1,
-                              width: 500,
-                              maxWidth: '100%',
-                            },
-                          }}
-                          noValidate
-                          autoComplete="off"
-                        >
-                          <p>Max Mark : {maxStudent.mark}</p>
-                          <h4>Max Marks got by : {maxStudent.studentId.firstName + ' ' + maxStudent.studentId.lastName}</h4>
-                          <h4>Least Marks got by : {leastStudent.mark}</h4>
-                          <h4>Less Marks got by : {leastStudent.studentId.firstName + ' ' + leastStudent.studentId.lastName}</h4>
 
-                          <TableContainer component={Paper} style={{ marginTop: '20px' }}>
-                            <Table sx={{ minWidth: 500 }} aria-label="simple table">
-                              <TableHead>
-                                <TableRow>
-                                  <TableCell>Reg No</TableCell>
-                                  <TableCell>Name</TableCell>
-                                  <TableCell>Marks</TableCell>
-                                </TableRow>
-                              </TableHead>
-                              <TableBody>
-                                {(subject.marks).map((student, index) => (
-                                  <TableRow key={index}>
-                                    <TableCell>{student.studentId.regNo}</TableCell>
-                                    <TableCell>{student.studentId.firstName} {student.studentId.lastName}</TableCell>
-                                    <TableCell>{student.mark}</TableCell>
-                                  </TableRow>
-                                ))}
+          <List>
+            {Array.isArray(projects) && projects.map((subject, index) => (
+              <>
+                <ListItem
+                  className='bg-white'
+                  secondaryAction={
+                    <IconButton edge="end" aria-label="delete"
+                      onClick={() => handleClickOpen2(index)}>
+                      <VisibilityIcon />
+                    </IconButton>
+                  }
+                >
+                  <ListItemAvatar>
+                    <Avatar>
+                      <FolderIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={subject.projectTitle}
+                  />
+                  <ListItemText
+                    primary={'Spec : ' + subject?.specialization?.specialization}
+                  />        <ListItemText
+                    primary={'Year : ' + subject?.specialization?.year}
+                  />
+                  <ListItemText
+                    primary={'Semester : ' + subject?.specialization?.semester}
+                  />
+                  <ListItemText
+                    primary={'Supervisor : ' + subject?.supervisor?.firstName}
+                  />
+                  <ListItemText
+                    primary={'Co-Sup : ' + subject?.coSupervisor?.firstName}
+                  />
+                  <ListItemText
+                    primary={'Marks : ' + subject?.marks}
+                  />
 
-                              </TableBody>
-                            </Table>
-                          </TableContainer>
-                        </Box>
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={() => generatePDF(subject)} variant='outlined'>Report</Button>
-                        <Button onClick={handleClose2} variant='outlined'>Cancel</Button>
-                      </DialogActions>
-                    </Dialog>
-                  </ListItem>
-                  <Divider />
-                </>
-              ))}
-            </List>
-          </Demo>
+
+                </ListItem>
+                <Divider />
+              </>
+            ))}
+          </List>
+
         </Grid>
       </Box>
+
+      <Dialog open={isOpen} onClose={() => setOpen(false)} className='p-5'>
+        <Box className="p-10">
+          <ListItemText
+            primary={selectedProject.projectTitle}
+          />
+          <ListItemText
+            primary={'Spec : ' + selectedProject?.specialization?.specialization}
+          />        <ListItemText
+            primary={'Year : ' + selectedProject?.specialization?.year}
+          />
+          <ListItemText
+            primary={'Semester : ' + selectedProject?.specialization?.semester}
+          />
+          <ListItemText
+            primary={'Supervisor : ' + selectedProject?.supervisor?.firstName}
+          />
+          <ListItemText
+            primary={'Co-Sup : ' + selectedProject?.coSupervisor?.firstName}
+          />
+          <ListItemText
+            primary={'Marks : ' + selectedProject?.marks}
+          />
+          <br />
+          <h1>Give Marks</h1>
+          <TextField value={mark} onChange={(e)=>setMark(e.target.value)} ></TextField>
+          <br />
+          <br />
+          <Button color='primary' variant='contained' onClick={handleUpdateMarks} >Submit</Button>
+        </Box>
+      </Dialog>
 
 
     </div>
