@@ -40,15 +40,13 @@ const addMarks = async (req, res) => {
 // Function to fetch all marks of the logged-in user
 const fetchUserMarks = async (req, res) => {
     try {
-        // Extracting token from the request headers
-        const token = req.headers.authorization.split(' ')[1];
-        // Verifying the token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        // Fetching the user ID from the decoded token
-        const userId = decoded.id;
+        
+    const id = req.loggedInId;
 
         // Find all marks for the logged-in user
-        const userMarks = await AssignmentMarksModel.find({ studentId: userId });
+        const userMarks = await AssignmentMarksModel.find({ studentId: id })
+        .populate('title')
+        .populate('studentId');
 
         return res.status(200).json(userMarks);
     } catch (error) {
