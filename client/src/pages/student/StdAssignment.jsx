@@ -6,11 +6,13 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
-    Box
+    Box,
+    Input
 } from '@mui/material';
 import { apiUrl } from '../../utils/Constants';
 import { toast } from 'react-toastify';
 import authAxios from '../../utils/authAxios';
+import { uploadFileToCloud } from '../../utils/CloudinaryConfig';
 
 export default function StdAssignment() {
     const [data, setData] = useState([]);
@@ -18,8 +20,12 @@ export default function StdAssignment() {
     const [selectedAssignment, setSelectedAssignment] = useState(null); // State to store the currently selected assignment
     const [newSubmission, setNewSubmission] = useState({
         submission: '',
-        remark: ''
+        remark: '',
+        file:''
     });
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [previewFile, setPreviewFile] = useState("");
+    const [isUploading, setUploading] = useState(false);
 
     const addSubmission = async () => {
         try {
@@ -31,7 +37,7 @@ export default function StdAssignment() {
                     'Content-Type': 'application/json'
                 }
             });
-            
+
             if (response) {
                 toast.success('Successfully added');
                 handleClose();
@@ -76,6 +82,28 @@ export default function StdAssignment() {
         setNewSubmission((prevData) => ({ ...prevData, [field]: value }));
     };
 
+    const handleUpload = async (event) => {
+        console.log('file change');
+        const file = event.target.files[0];
+        if (file) {
+            if (file.type.startsWith('image/')) {
+                setSelectedFile(file);
+                setUploading(true)
+                const resp = await uploadFileToCloud(file)
+                setPreviewFile(resp)
+                setUploading(false)
+            } else {
+                alert('Please select an image file.');
+            }
+        }
+    };
+    useEffect(()=>{
+        setNewSubmission((prevFormData) => ({
+            ...prevFormData,
+            file: previewFile
+        }));
+    },[previewFile])
+
     return (
         <div className="flex justify-center">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
@@ -118,12 +146,23 @@ export default function StdAssignment() {
                             />
                         </div>
                         <div>
+                           
                             <TextField
                                 id="remark"
                                 label="Remark"
                                 fullWidth
                                 onChange={(e) => handleInputChange('remark', e.target.value)}
                                 value={newSubmission.remark}
+                            />
+                        </div>
+                        <div>
+                        <label className='text-blue-500 font-semibold' htmlFor="file">{isUploading ? 'Uploading....'  :'Done'}</label>
+                            <Input
+                                type='file'
+                                id="file"
+                                label="file"
+                                fullWidth
+                                onChange={handleUpload}
                             />
                         </div>
                     </Box>
