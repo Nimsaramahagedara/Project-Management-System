@@ -23,6 +23,10 @@ const groupSchema = new mongoose.Schema({
             }
         }
     ],
+    marks:{
+        type:String,
+        default:'Pending'
+    },
     supervisor: {
         type: mongoose.Schema.ObjectId,
         ref: 'users',
@@ -44,6 +48,6 @@ const groupSchema = new mongoose.Schema({
     // }
 }, { timestamps: true });
 
-const RegisterTempModel = mongoose.model("ProjectGroup", groupSchema);
+const GroupModel = mongoose.model("ProjectGroup", groupSchema);
 
-export default RegisterTempModel;
+export default GroupModel;
