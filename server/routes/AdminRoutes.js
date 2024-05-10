@@ -4,7 +4,6 @@ import { CreateSupervisorAccount, deleteSupervisor, getAllSupervisors, getTeache
 import { getOverview } from '../controllers/AdminControlller.js';
 import { gradeUp } from '../controllers/ClassController.js';
 
-
 const adminRouter = express.Router();
 
 adminRouter.get('/get-overview',getOverview);

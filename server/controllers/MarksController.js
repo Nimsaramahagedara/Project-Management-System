@@ -23,7 +23,6 @@ export const getMarksTable = async(req,res)=>{
     }
 }
 
-
 //For Subject
 export const addSubjectMakrs = async(req,res)=>{
     const {subid} = req.params;
