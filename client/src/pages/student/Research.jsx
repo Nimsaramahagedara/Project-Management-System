@@ -40,9 +40,21 @@ export default function Research() {
         }));
     };
 
+    useEffect(()=>{
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            imageLinkOfAcceptanceLetter: previewImage
+        }));
+    },[previewImage])
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
+            console.log(formData);
+            console.log(previewImage);
+            if(!formData.imageLinkOfAcceptanceLetter){
+                throw Error('Image is required')
+            }
             const response = await axios.post(`${apiUrl}/research/`, formData);
             if (response.status === 200) {
                 console.log("Research Paper Submitted successfully!");
