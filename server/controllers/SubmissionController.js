@@ -7,7 +7,8 @@ export const createSubmission = async (req, res) => {
         stdId : id,
         assId : req.body.assId,
         submission : req.body.submission,
-        remark : req.body.remark
+        remark : req.body.remark,
+        file : req?.body?.file
     }
     console.log(data);
     try {
