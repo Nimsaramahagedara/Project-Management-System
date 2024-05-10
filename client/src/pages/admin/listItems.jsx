@@ -270,14 +270,14 @@ export const supportListItems = (
       </ListItemButton>
     </Link>
 
-    {/* <Link to={'/dashboard/manageSubj'}>
+    <Link to={'/dashboard/markings'}>
       <ListItemButton>
         <ListItemIcon>
           <ManageAccountsIcon />
         </ListItemIcon>
-        <ListItemText primary="Manage Subjects" />
+        <ListItemText primary="Markings" />
       </ListItemButton>
-    </Link> */}
+    </Link>
 
     <Link to={'/dashboard/publishnotices'}>
       <ListItemButton>

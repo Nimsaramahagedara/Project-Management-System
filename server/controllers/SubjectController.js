@@ -1,4 +1,4 @@
-import RegisterTempModel from "../models/GroupModel.js";
+import GroupModel from "../models/GroupModel.js";
 import MarksModel from "../models/MarksModel.js";
 import ProjectModel from "../models/ProjectModel.js";
 
@@ -27,7 +27,7 @@ export const getAllSubjectsInClass = async (req, res) => {
             throw Error('Please Provide ClassId as Params');
         }
 
-        const allSubjects = await RegisterTempModel.find({specialization:classId}).populate('students').populate("supervisor").populate("coSupervisor");
+        const allSubjects = await GroupModel.find({specialization:classId}).populate('students').populate("supervisor").populate("coSupervisor");
         console.log('All Projects : ' ,allSubjects);
         res.status(200).json(allSubjects);
     } catch (error) {
@@ -73,7 +73,7 @@ export const getSubjectTeacher = async(req,res)=>{
     try {
         if (id) {
             try {
-                const teacher = await ProjectModel.findById(id).populate('teachBy');
+                const teacher = await GroupModel.findById(id).populate('students').populate("supervisor").populate("coSupervisor");;
                 if (!teacher) {
                     throw Error('No Subjects Or Other Error');
         
@@ -81,6 +81,7 @@ export const getSubjectTeacher = async(req,res)=>{
                 res.status(200).json(teacher);
         
             } catch (error) {
+                console.log(error);
                 res.status(500).json({
                     message: error.mesasge
                 })
