@@ -146,19 +146,19 @@ const SupportTeam = () => {
 
             <AdminWelcomeCard />
 
-            <ColorCard count={allSupport.length} name={'Support Teams'} icon={<VolunteerActivismIcon/>} bgColor={colors.cyan[400]}/>
+            <ColorCard count={allSupport.length} name={'Examiner Teams'} icon={<VolunteerActivismIcon/>} bgColor={colors.cyan[400]}/>
             <div style={{ textAlign: 'center' }}>
-                <h1 style={{ fontSize: '2em' }}>Manage Support Team</h1>
+                <h1 style={{ fontSize: '2em' }}>Manage Examiner Team</h1>
             </div>
 
             {/* Adding New Student Part Start Here... */}
             <Button variant="contained" onClick={handleAddSupport}>
-                Add Support Account
+                Add Examiner Account
             </Button>
 
 
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle sx={{ textAlign: 'center' }}>Add New Support Member</DialogTitle>
+                <DialogTitle sx={{ textAlign: 'center' }}>Add New Examiner Member</DialogTitle>
 
                 <DialogContent>
                     <DialogContentText>
@@ -206,9 +206,6 @@ const SupportTeam = () => {
                             value={createSupportFormData.lastName}
                         />
 
-                        {/* Student DOB Input */}
-                        <DateInput label='Date Of Birth' onChange={(newValue) => handleCreateChange('dob', newValue)} />
-
                         {/* Support Password Input */}
                         <p className='text-xs'>Password should contain a letter with the characters ex: test1234</p>
                         <TextField
@@ -237,18 +234,6 @@ const SupportTeam = () => {
                             variant="outlined"
                         />
 
-                        {/*  Address Input */}
-                        <TextField
-                            required
-                            id="outlined-address"
-                            label=" Address"
-                            placeholder="e.g., home, village, city"
-                            fullWidth
-                            margin="normal"
-                            variant="outlined"
-                            onChange={(e) => handleCreateChange('address', e.target.value)}
-                            value={createSupportFormData.address}
-                        />
 
                         {/*  Email Input */}
                         <TextField
@@ -276,15 +261,6 @@ const SupportTeam = () => {
                             value={createSupportFormData.contactNo}
                             type='number'
                         />
-                        <RadioGroup
-                            aria-labelledby="demo-controlled-radio-buttons-group"
-                            name="controlled-radio-buttons-group"
-                            value={createSupportFormData.gender}
-                            onChange={(e) => handleCreateChange('gender', e.target.value)}
-                        >
-                            <FormControlLabel value="female" control={<Radio />} label="Female" />
-                            <FormControlLabel value="male" control={<Radio />} label="Male" />
-                        </RadioGroup>
                     </div>
                     {/* Form Ends Here.. */}
 

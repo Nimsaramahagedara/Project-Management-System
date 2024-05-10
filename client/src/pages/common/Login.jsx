@@ -61,8 +61,8 @@ export default function Login() {
             toast.success('Login Success as a Student')
             navigate('/portal');
             break;
-          case 'support': //Support
-          toast.success('Login Success as a Support')
+          case 'examiner': //Support
+          toast.success('Login Success as a Examiner')
             navigate('/dashboard/supoverview');
             break;
           case 'supervisor': //Teacher

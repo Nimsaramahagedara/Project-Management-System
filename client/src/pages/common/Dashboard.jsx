@@ -165,7 +165,7 @@ export default function Dashboard() {
       case "coordinator": //Co-ordinator
         setNavlinks(coordinatorListItems);
         break;
-      case "support": //Support
+      case "examiner": //Support
         setNavlinks(supportListItems);
         break;
       case "supervisor": //Teacher

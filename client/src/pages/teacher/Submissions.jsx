@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import {
     Button,
@@ -57,6 +57,7 @@ const Notice = () => {
                             <TableCell>Title</TableCell>
                             <TableCell>Reg No</TableCell>
                             <TableCell>Student Name</TableCell>
+                            <TableCell>File</TableCell>
                             <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
@@ -67,6 +68,7 @@ const Notice = () => {
                                 <TableCell>{row.assId ? `${row.assId.title}` : 'N/A'}</TableCell>
                                 <TableCell>{row.stdId ? `${row.stdId.regNo}` : 'N/A'}</TableCell>
                                 <TableCell>{row.stdId ? `${row.stdId.firstName} ${row.stdId.lastName}` : 'N/A'}</TableCell>
+                                <TableCell><Link to={row.file} target='_blank'>{row.file ? 'Download File' : 'File Not Available'}</Link></TableCell>
                                 <TableCell>
                                     <Button
                                         variant="outlined"

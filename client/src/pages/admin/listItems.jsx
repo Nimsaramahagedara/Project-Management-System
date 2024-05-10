@@ -129,7 +129,7 @@ export const coordinatorListItems = (
         <ListItemIcon>
           <DirectionsWalkIcon />
         </ListItemIcon>
-        <ListItemText primary="Support" />
+        <ListItemText primary="Examiners" />
       </ListItemButton>
     </Link>
 
@@ -243,30 +243,30 @@ export const supportListItems = (
       </ListItemButton>
     </Link>
 
-    <Link to={'/dashboard/createstudents'}>
+    {/* <Link to={'/dashboard/createstudents'}>
       <ListItemButton>
         <ListItemIcon>
           <PersonAddIcon />
         </ListItemIcon>
         <ListItemText primary="Student Accounts" />
       </ListItemButton>
-    </Link>
+    </Link> */}
 
-    <Link to={'/dashboard/createteachers'}>
+    {/* <Link to={'/dashboard/createteachers'}>
       <ListItemButton>
         <ListItemIcon>
           <PersonAddIcon />
         </ListItemIcon>
         <ListItemText primary="Teacher Accounts" />
       </ListItemButton>
-    </Link>
+    </Link> */}
 
     <Link to={'/dashboard/classes'}>
       <ListItemButton>
         <ListItemIcon>
           <AccountBalanceIcon />
         </ListItemIcon>
-        <ListItemText primary="Classes" />
+        <ListItemText primary="Projects" />
       </ListItemButton>
     </Link>
 

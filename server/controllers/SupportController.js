@@ -6,25 +6,21 @@ import bcrypt from 'bcryptjs';
 export const CreateSupportAccount = async (req, res) => {
     const data = req.body;
     try {
+        const regNo = await UserModel.countDocuments();
         const isExist = await UserModel.findOne({ email: data.email });
         if (isExist) {
             throw Error('Email Already Exist !!');
         }
         
         const supportData = {
-            regNo: data.regNo,
+            regNo: regNo,
             firstName: data.firstName,
             lastName:data.lastName,
             address:data.address,
-            dob:data.dob,
             password:data.password,
             email:data.email,
-            gender:"",
-            role:'support',
+            role:'examiner',
             contactNo:data.contactNo,
-            parentId:null,
-            classId:null,
-            ownedClass:null
 
         }
         const result = await UserModel.create(supportData);
@@ -47,7 +43,7 @@ export const CreateSupportAccount = async (req, res) => {
 
 export const getAllSupportMembers = async(req,res)=>{
     try {
-        const result = await UserModel.find({role:'support'});
+        const result = await UserModel.find({role:'examiner'});
         
         if(result){
             res.status(200).json(result);
@@ -111,7 +107,7 @@ export const updateSupportMember = async(req,res)=>{
         password:data.password,
         email:data.email,
         gender:"",
-        role:'support',
+        role:'examiner',
         contactNo:data.contactNo,
         parentId:null,
         classId:null,
