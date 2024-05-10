@@ -18,6 +18,7 @@ import registerTempRouter from './routes/RegisterTempRoutes.js';
 import groupRouter from './routes/GroupRoutes.js';
 import researchRouter from './routes/ResearchRoutes.js';
 import assignmentRouter from './routes/AssignmentRoutes.js';
+import submissionRouter from './routes/SubmisionRoutes.js';
 dotenv.config();
 
 const port = process.env.PORT || 80 ;
@@ -57,6 +58,8 @@ app.use('/group',groupRouter);
 app.use('/research',researchRouter);
 //assignmentRouter Routes
 app.use('/assignment',assignmentRouter);
+//submissionRouter Routes
+app.use('/submission',submissionRouter);
 
 
 dbConfig().then(()=>{

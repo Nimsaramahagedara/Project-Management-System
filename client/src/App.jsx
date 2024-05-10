@@ -56,6 +56,7 @@ import ProjectGroup from './pages/student/ProjectGroup'
 import StdAssignment from './pages/student/StdAssignment'
 
 import Research from './pages/student/Research'
+import MySubmissions from './pages/student/MySubmissions'
 
 
 
@@ -124,6 +125,7 @@ function App() {
             <Route path='profile' element={<StProfile />} />
             <Route path='message' element={<MessageTeacher />} />
             <Route path='research' element={<Research />} />
+            <Route path='mysubmissions' element={<MySubmissions />} />
 
 
           </Route>

@@ -41,6 +41,9 @@ const TopNav = () => {
                 <Link to={'/portal/assignments'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
                     Assignments
                 </Link>
+                <Link to={'/portal/mysubmissions'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
+                    Submissions
+                </Link>
                 <Link to={'/portal/marks'} className='text-white bg-gray-400 text-lg hover:bg-gray-500 p-5 focus:bg-blue-950 focus:text-white'>
                     Marks
                 </Link>
