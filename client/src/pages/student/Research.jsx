@@ -8,12 +8,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { apiUrl } from "../../utils/Constants";
 import { uploadFileToCloud } from "../../utils/CloudinaryConfig";
 
-
 export default function Research() {
-    const [members, setMembers] = useState([]);
+    const [students, setStudents] = useState([]);
+    const [supervisors, setSupervisors] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewImage, setPreviewImage] = useState("");
-    const [isUploading, setUploading] = useState(false)
+    const [isUploading, setUploading] = useState(false);
     const [formData, setFormData] = useState({
         title: "",
         student1: "",
@@ -22,8 +22,8 @@ export default function Research() {
         student4: "",
         supervisor1: "",
         supervisor2: "",
-        coSupervisor1: "",
-        coSupervisor2: "",
+        // coSupervisor1: "",
+        // coSupervisor2: "",
         journalName: "",
         issnNumber: "",
         h5IndexLink: "",
@@ -46,95 +46,58 @@ export default function Research() {
             const response = await axios.post(`${apiUrl}/research/`, formData);
             if (response.status === 200) {
                 console.log("Research Paper Submitted successfully!");
-                // Toast success message
                 toast.success("Research Paper Submitted successfully!");
                 // Redirect to '/dashboard/studentDash'
                 <Link to="/dashboard/studentDash">Go to Student Dashboard</Link>
             }
         } catch (error) {
             console.error("Error submitting research paper:", error);
-            // Toast error message
             toast.error("Error submitting research paper. Please try again later.");
         }
     };
 
-
-
-
     const handleImageUpload = async (event) => {
         console.log('file change');
-        const file = event.target.files[0]; // Get the selected file from the input
-
+        const file = event.target.files[0];
         if (file) {
-            // Check if the selected file is an image
             if (file.type.startsWith('image/')) {
-                setSelectedFile(file); // Set the selected file in state
+                setSelectedFile(file);
                 setUploading(true)
                 const resp = await uploadFileToCloud(file)
                 setPreviewImage(resp)
                 setUploading(false)
-
             } else {
-                // Handle the case when the selected file is not an image
                 alert('Please select an image file.');
             }
         }
     };
 
-
-
-    const GetMyGroup = async () => {
+    const getUserDetails = async () => {
         try {
-            const res = await authAxios.get(`${apiUrl}/group/mygroup`);
-            setMembers(res.data);
-            console.log(res.data);
+            const res = await authAxios.get(`${apiUrl}/group/stdGroup`);
+            const studentIds = res.data.students.map(student => student.studentId);
+            setStudents(studentIds);
+            console.log(studentIds);
         } catch (error) {
+            console.log(error);
             toast.error(error.response.data.message);
         }
     };
-    const [sup, setSup] = useState([])
-    const GetSup = async () => {
+
+    const fetchSupervisors = async () => {
         try {
-            const res = await authAxios.get(`${apiUrl}/user/get-all-supervisors`);
-            setSup(res.data);
-            console.log(res.data);
+            const data = await authAxios.get(`${apiUrl}/admin/get-all-supervisors`);
+            setSupervisors(data.data);
+            console.log(data)
         } catch (error) {
-            toast.error(error.response.data.message);
-        }
-    };
-    const [cosup, setCoSup] = useState([])
-    const GetCoSup = async () => {
-        try {
-            const res = await authAxios.get(`${apiUrl}/user/get-all-cosupervisors`);
-            setCoSup(res.data);
-            console.log(res.data);
-        } catch (error) {
-            toast.error(error.response.data.message);
+            toast.error("You need to enroll for the class");
         }
     };
 
     useEffect(() => {
-        GetMyGroup();
-        GetSup();
-        GetCoSup();
+        getUserDetails();
+        fetchSupervisors(); // Call fetchSupervisors here
     }, []);
-
-    const [extractedMembers, setExtractedMembers] = useState({});
-
-    useEffect(() => {
-        const extracted = members.reduce((acc, member) => {
-            acc.member1 = member.member1;
-            acc.member2 = member.member2;
-            acc.member3 = member.member3;
-            acc.member4 = member.member4;
-            return acc;
-        }, {});
-
-        setExtractedMembers(extracted);
-    }, [members]);
-
-
-
 
     return (
         <>
@@ -147,7 +110,7 @@ export default function Research() {
                     <div className="smallcard row max-w-5xl mx-auto border rounded-md py-10 px-10">
                         <div className="col-md-6">
                             <form id="itemForm" className="ml-7" onSubmit={handleSubmit}>
-                                <div className="grid grid-cols-2">
+                            <div className="grid grid-cols-2">
                                     <div className="col">
                                         <label
                                             className="block text-sm font-medium text-slate-500"
@@ -167,16 +130,17 @@ export default function Research() {
                                         />
                                     </div>
                                 </div>
-
-
-                                {/* Student1 input starts here*/}
                                 <div className="grid grid-cols-2 mt-10">
+
+                                    
+
+                                    {/*Students */}
                                     <div className="col">
                                         <label
                                             className="block text-sm font-medium text-slate-500"
                                             htmlFor="student1"
                                         >
-                                            Student1
+                                            Student 1
                                         </label>
                                         <div className="relative h-10 w-72 min-w-[425px]">
                                             <select
@@ -190,95 +154,99 @@ export default function Research() {
                                                 onChange={handleChange}
                                             >
                                                 <option value="">Select Student 1</option>
-                                                <option key={extractedMembers.member1} value={extractedMembers.member1}>{extractedMembers.member1}</option>
-                                                <option key={extractedMembers.member2} value={extractedMembers.member2}>{extractedMembers.member2}</option>
-                                                <option key={extractedMembers.member3} value={extractedMembers.member3}>{extractedMembers.member3}</option>
-                                                <option key={extractedMembers.member4} value={extractedMembers.member4}>{extractedMembers.member4}</option>
-
+                                                {students.map(studentId => (
+                                                    <option key={studentId.regNo} value={studentId._id}>{`${studentId.firstName} ${studentId.lastName}`}</option>
+                                                ))}
                                             </select>
                                         </div>
                                     </div>
 
 
-                                    {/*Student2 input starts here*/}
                                     <div className="col">
                                         <label
                                             className="block text-sm font-medium text-slate-500"
                                             htmlFor="student2"
                                         >
-                                            Student2
+                                            Student 2
                                         </label>
                                         <div className="relative h-10 w-72 min-w-[425px]">
                                             <select
-                                                className="peer h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 bg-white border-slate-300 shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+                                                className="peer h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200  bg-white  border-slate-300 shadow-sm placeholder-slate-400
+                focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                invalid:border-pink-500 invalid:text-pink-600
+                focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                                                 name="student2"
                                                 value={formData.student2}
                                                 onChange={handleChange}
                                             >
                                                 <option value="">Select Student 2</option>
-                                                <option key={extractedMembers.member1} value={extractedMembers.member1}>{extractedMembers.member1}</option>
-                                                <option key={extractedMembers.member2} value={extractedMembers.member2}>{extractedMembers.member2}</option>
-                                                <option key={extractedMembers.member3} value={extractedMembers.member3}>{extractedMembers.member3}</option>
-                                                <option key={extractedMembers.member4} value={extractedMembers.member4}>{extractedMembers.member4}</option>
-
+                                                {students.map(studentId => (
+                                                    <option key={studentId.regNo} value={studentId._id}>{`${studentId.firstName} ${studentId.lastName}`}</option>
+                                                ))}
                                             </select>
                                         </div>
                                     </div>
 
-                                    {/*Student3 input starts here*/}
+
                                     <div className="col">
                                         <label
                                             className="block text-sm font-medium text-slate-500"
                                             htmlFor="student3"
                                         >
-                                            Student3
+                                            Student 3
                                         </label>
                                         <div className="relative h-10 w-72 min-w-[425px]">
                                             <select
-                                                className="peer h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 bg-white border-slate-300 shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+                                                className="peer h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200  bg-white  border-slate-300 shadow-sm placeholder-slate-400
+                focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                invalid:border-pink-500 invalid:text-pink-600
+                focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                                                 name="student3"
                                                 value={formData.student3}
                                                 onChange={handleChange}
                                             >
                                                 <option value="">Select Student 3</option>
-                                                <option key={extractedMembers.member1} value={extractedMembers.member1}>{extractedMembers.member1}</option>
-                                                <option key={extractedMembers.member2} value={extractedMembers.member2}>{extractedMembers.member2}</option>
-                                                <option key={extractedMembers.member3} value={extractedMembers.member3}>{extractedMembers.member3}</option>
-                                                <option key={extractedMembers.member4} value={extractedMembers.member4}>{extractedMembers.member4}</option>
-
+                                                {students.map(studentId => (
+                                                    <option key={studentId.regNo} value={studentId._id}>{`${studentId.firstName} ${studentId.lastName}`}</option>
+                                                ))}
                                             </select>
                                         </div>
                                     </div>
 
-                                    {/*Student4 input starts here*/}
+
                                     <div className="col">
                                         <label
                                             className="block text-sm font-medium text-slate-500"
                                             htmlFor="student4"
                                         >
-                                            Student4
+                                            Student 4
                                         </label>
                                         <div className="relative h-10 w-72 min-w-[425px]">
                                             <select
-                                                className="peer h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 bg-white border-slate-300 shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+                                                className="peer h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200  bg-white  border-slate-300 shadow-sm placeholder-slate-400
+                focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                invalid:border-pink-500 invalid:text-pink-600
+                focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                                                 name="student4"
                                                 value={formData.student4}
                                                 onChange={handleChange}
                                             >
                                                 <option value="">Select Student 4</option>
-                                                <option key={extractedMembers.member1} value={extractedMembers.member1}>{extractedMembers.member1}</option>
-                                                <option key={extractedMembers.member2} value={extractedMembers.member2}>{extractedMembers.member2}</option>
-                                                <option key={extractedMembers.member3} value={extractedMembers.member3}>{extractedMembers.member3}</option>
-                                                <option key={extractedMembers.member4} value={extractedMembers.member4}>{extractedMembers.member4}</option>
-
+                                                {students.map(studentId => (
+                                                    <option key={studentId.regNo} value={studentId._id}>{`${studentId.firstName} ${studentId.lastName}`}</option>
+                                                ))}
                                             </select>
                                         </div>
                                     </div>
+                                </div>
 
 
-
-                                    {/* Supervisor input starts here */}
-                                    <div className="col mt-10">
+                                {/*Students */}
+                                <div className="flex flex-wrap">
+                                    <div className="col mt-10 flex-1">
                                         <label
                                             className="block text-sm font-medium text-slate-500"
                                             htmlFor="supervisor1"
@@ -293,8 +261,8 @@ export default function Research() {
                                                 onChange={handleChange}
                                             >
                                                 <option value="">Select Supervisor 1</option>
-                                                {sup.map((supervisor, index) => (
-                                                    <option key={index} value={`${supervisor.firstName} ${supervisor.lastName}`}>
+                                                {supervisors.map((supervisor, index) => (
+                                                    <option key={index} value={supervisor._id}>
                                                         {`${supervisor.firstName} ${supervisor.lastName}`}
                                                     </option>
                                                 ))}
@@ -302,7 +270,7 @@ export default function Research() {
                                         </div>
                                     </div>
 
-                                    <div className="col mt-10">
+                                    <div className="col mt-10 flex-1">
                                         <label
                                             className="block text-sm font-medium text-slate-500"
                                             htmlFor="supervisor2"
@@ -317,67 +285,16 @@ export default function Research() {
                                                 onChange={handleChange}
                                             >
                                                 <option value="">Select Supervisor 2</option>
-                                                {sup.map((supervisor, index) => (
-                                                    <option key={index} value={`${supervisor.firstName} ${supervisor.lastName}`}>
+                                                {supervisors.map((supervisor, index) => (
+                                                    <option key={index} value={supervisor._id}>
                                                         {`${supervisor.firstName} ${supervisor.lastName}`}
                                                     </option>
                                                 ))}
                                             </select>
                                         </div>
                                     </div>
-
-                                    {/* Co-Supervisor input starts here */}
-                                    <div className="col mt-10">
-                                        <label
-                                            className="block text-sm font-medium text-slate-500"
-                                            htmlFor="coSupervisor1"
-                                        >
-                                            Co-Supervisor1
-                                        </label>
-                                        <div className="relative h-10 w-72 min-w-[425px]">
-                                            <select
-                                                className="peer h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
-                                                name="coSupervisor1"
-                                                value={formData.coSupervisor1}
-                                                onChange={handleChange}
-                                            >
-                                                <option value="">Select Co-Supervisor 1</option>
-                                                {cosup.map((cosupervisor, index) => (
-                                                    <option key={index} value={`${cosupervisor.firstName} ${cosupervisor.lastName}`}>
-                                                        {`${cosupervisor.firstName} ${cosupervisor.lastName}`}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div className="col mt-10">
-                                        <label
-                                            className="block text-sm font-medium text-slate-500"
-                                            htmlFor="coSupervisor2"
-                                        >
-                                            Co-Supervisor2
-                                        </label>
-                                        <div className="relative h-10 w-72 min-w-[425px]">
-                                            <select
-                                                className="peer h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
-                                                name="coSupervisor2"
-                                                value={formData.coSupervisor2}
-                                                onChange={handleChange}
-                                            >
-                                                <option value="">Select Co-Supervisor 2</option>
-                                                {cosup.map((cosupervisor, index) => (
-                                                    <option key={index} value={`${cosupervisor.firstName} ${cosupervisor.lastName}`}>
-                                                        {`${cosupervisor.firstName} ${cosupervisor.lastName}`}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    </div>
-
-
-
                                 </div>
+
 
                                 {/* Journal name input starts here */}
                                 <div className="grid grid-cols-2">
@@ -486,6 +403,7 @@ export default function Research() {
                                     </div>
 
 
+                                    {/* Image Link input starts here */}
                                     <div className="col mt-10">
 
 
@@ -505,11 +423,7 @@ export default function Research() {
                                             <img src={previewImage} alt={isUploading ? 'Uploading....' : 'Image'} className="w-full h-full object-cover" />
                                         </div>
                                     </div>
-
-
-
                                 </div>
-
                                 <br /><br />
 
                                 <div>
