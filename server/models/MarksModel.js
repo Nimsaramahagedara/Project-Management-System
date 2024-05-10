@@ -1,10 +1,7 @@
 import mongoose from "mongoose";
 
 const MarksSchema = new mongoose.Schema({
-    // studentId:{
-    //     type:mongoose.SchemaTypes.ObjectId,
-    //     ref:'users'
-    // },
+    
     subId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'subjects'
