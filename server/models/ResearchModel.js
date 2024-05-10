@@ -34,14 +34,6 @@ const ResearchSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    coSupervisor1: {
-        type: String,
-        required: true,
-    },
-    coSupervisor2: {
-        type: String,
-        required: true,
-    },
     journalName: {
         type: String,
     },
