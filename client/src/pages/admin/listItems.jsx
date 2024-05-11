@@ -254,23 +254,6 @@ export const supportListItems = (
       </ListItemButton>
     </Link>
 
-    {/* <Link to={'/dashboard/createstudents'}>
-      <ListItemButton>
-        <ListItemIcon>
-          <PersonAddIcon />
-        </ListItemIcon>
-        <ListItemText primary="Student Accounts" />
-      </ListItemButton>
-    </Link> */}
-
-    {/* <Link to={'/dashboard/createteachers'}>
-      <ListItemButton>
-        <ListItemIcon>
-          <PersonAddIcon />
-        </ListItemIcon>
-        <ListItemText primary="Teacher Accounts" />
-      </ListItemButton>
-    </Link> */}
 
     <Link to={'/dashboard/classes'}>
       <ListItemButton>
@@ -287,6 +270,15 @@ export const supportListItems = (
           <ManageAccountsIcon />
         </ListItemIcon>
         <ListItemText primary="Markings" />
+      </ListItemButton>
+    </Link>
+    
+    <Link to={'/dashboard/assignments'}>
+      <ListItemButton>
+        <ListItemIcon>
+          <NoteIcon />
+        </ListItemIcon>
+        <ListItemText primary="Assignments" />
       </ListItemButton>
     </Link>
 
