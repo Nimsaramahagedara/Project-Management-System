@@ -197,10 +197,10 @@ const SupProjectGroups = () => {
                                                         Student {index + 1}
                                                     </Typography>
                                                     <Typography variant="subtitle1" gutterBottom>
-                                                        <strong>Student Name: </strong> {std.studentId.firstName} {std.studentId.lastName}
+                                                        <strong>Student Name: </strong>{std.studentId ? `${std.studentId.firstName} ${std.studentId.lastName}` : 'N/A'}
                                                     </Typography>
                                                     <Typography variant="subtitle1" gutterBottom>
-                                                        <strong>Registration No: </strong> {std.studentId.regNo}
+                                                        <strong>Registration No: </strong> {std.studentId ? `${std.studentId.regNo}` : 'N/A'}
                                                     </Typography>
                                                     <Divider />
                                                 </div>
