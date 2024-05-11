@@ -42,10 +42,11 @@ const StudentMarks = () => {
 
   const getAllMarks = async () => {
     try {
-      const marksResponse = await authAxios.get(`${apiUrl}/marks/get-marks-by-student`);
+      const marksResponse = await authAxios.get(`${apiUrl}/group`);
       const allMarks = marksResponse.data;
-      const term1MarksData = allMarks.filter(mark => mark.semester === 1);
-      const term2MarksData = allMarks.filter(mark => mark.semester === 2);
+      console.log(allMarks);
+      const term1MarksData = allMarks.filter(mark => mark.specialization.semester === 1);
+      const term2MarksData = allMarks.filter(mark => mark.specialization.semester === 2);
       setTerm1Marks(term1MarksData);
       setTerm2Marks(term2MarksData);
       setIsLoading(false);
@@ -73,7 +74,11 @@ const StudentMarks = () => {
                 <TableHead>
                   <TableRow>
                     <StyledTableCell>#</StyledTableCell>
-                    <StyledTableCell align='right'>Student Name</StyledTableCell>
+                    <StyledTableCell>Project Title</StyledTableCell>
+                    <StyledTableCell>Research Area</StyledTableCell>
+                    <StyledTableCell>Suprvisor</StyledTableCell>
+                    <StyledTableCell>Co-Supervisor</StyledTableCell>
+                    <StyledTableCell align='right'>Student Names</StyledTableCell>
                     <StyledTableCell align='right'>Marks</StyledTableCell>
                   </TableRow>
                 </TableHead>
@@ -81,8 +86,12 @@ const StudentMarks = () => {
                   {term1Marks.map((mark, index) => (
                     <StyledTableRow key={mark._id}>
                       <StyledTableCell component='th' scope='row'>
-                        {index + 1}
+                        {mark._id}
                       </StyledTableCell>
+                      <StyledTableCell>{mark.projectTitle}</StyledTableCell>
+                      <StyledTableCell>{mark.researchArea}</StyledTableCell>
+                      <StyledTableCell>{mark.supervisor?.firstName}</StyledTableCell>
+                      <StyledTableCell>{mark.coSupervisor?.firstName}</StyledTableCell>
                       <StyledTableCell align='right'>{mark.studentName}</StyledTableCell>
                       <StyledTableCell align='right'>{mark.marks}</StyledTableCell>
                     </StyledTableRow>
@@ -99,7 +108,11 @@ const StudentMarks = () => {
                 <TableHead>
                   <TableRow>
                     <StyledTableCell>#</StyledTableCell>
-                    <StyledTableCell align='right'>Student Name</StyledTableCell>
+                    <StyledTableCell>Project Title</StyledTableCell>
+                    <StyledTableCell>Research Area</StyledTableCell>
+                    <StyledTableCell>Suprvisor</StyledTableCell>
+                    <StyledTableCell>Co-Supervisor</StyledTableCell>
+                    <StyledTableCell align='right'>Student Names</StyledTableCell>
                     <StyledTableCell align='right'>Marks</StyledTableCell>
                   </TableRow>
                 </TableHead>
@@ -107,9 +120,15 @@ const StudentMarks = () => {
                   {term2Marks.map((mark, index) => (
                     <StyledTableRow key={mark._id}>
                       <StyledTableCell component='th' scope='row'>
-                        {index + 1}
+                        {mark._id}
                       </StyledTableCell>
-                      <StyledTableCell align='right'>{mark.studentName}</StyledTableCell>
+                      <StyledTableCell>{mark.projectTitle}</StyledTableCell>
+                      <StyledTableCell>{mark.researchArea}</StyledTableCell>
+                      <StyledTableCell>{mark.supervisor?.firstName}</StyledTableCell>
+                      <StyledTableCell>{mark.coSupervisor?.firstName}</StyledTableCell>
+                      <StyledTableCell align='right'>{mark.students?.map((st)=>(
+                        <h1 className='text-sm block'>{st?.studentId?.firstName + ' ' + st?.studentId?.lastName}</h1>
+                      ))}</StyledTableCell>
                       <StyledTableCell align='right'>{mark.marks}</StyledTableCell>
                     </StyledTableRow>
                   ))}
