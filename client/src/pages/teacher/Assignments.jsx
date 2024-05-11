@@ -24,9 +24,11 @@ import { apiUrl } from '../../utils/Constants';
 import { toast } from 'react-toastify';
 import authAxios from '../../utils/authAxios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../common/AuthContext';
 
 const Assignments = () => {
 
+  const { logout, userRole } = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -146,9 +148,11 @@ const Assignments = () => {
   return (
     <div>
       <React.Fragment>
-        <Button variant="outlined" onClick={handleClickOpen}>
-          Publish an Assignment
-        </Button>
+        {userRole == 'supervisor' ?
+          <Button variant="outlined" onClick={handleClickOpen}>
+            Publish an Assignment
+          </Button>
+          : ''}
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Publish an Assignment</DialogTitle>
           <DialogContent>
@@ -254,16 +258,21 @@ const Assignments = () => {
                         rows={4}
                       />
                     </div>
-                    <DialogActions style={{ justifyContent: 'center' }}>
-                      <Button size="small" startIcon={<SaveIcon />} onClick={handleUpdate} variant="contained" color="primary">
-                        Update
-                      </Button>
 
-                      <Button size="small" startIcon={<DeleteIcon />} variant="contained" color="error" onClick={() => handleDeleteNotice(updateFormData._id)}>
-                        Remove
-                      </Button>
-                      <Button size="small" startIcon={<CancelIcon />} variant='outlined' onClick={handleClose2}>Cancel</Button>
-                    </DialogActions>
+                    {userRole == 'supervisor' ?
+                      <>
+                        <DialogActions style={{ justifyContent: 'center' }}>
+                          <Button size="small" startIcon={<SaveIcon />} onClick={handleUpdate} variant="contained" color="primary">
+                            Update
+                          </Button>
+
+                          <Button size="small" startIcon={<DeleteIcon />} variant="contained" color="error" onClick={() => handleDeleteNotice(updateFormData._id)}>
+                            Remove
+                          </Button>
+                          <Button size="small" startIcon={<CancelIcon />} variant='outlined' onClick={handleClose2}>Cancel</Button>
+                        </DialogActions>
+                      </>
+                      : ''}
                   </DialogContent>
                 </Dialog>
               </TableRow>

@@ -77,6 +77,7 @@ export default function MySubmissions() {
               <TableCell>Submission</TableCell>
               <TableCell>File</TableCell>
               <TableCell>Remark</TableCell>
+              <TableCell>Marks</TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableHead>
@@ -88,12 +89,19 @@ export default function MySubmissions() {
                 <TableCell>{row.submission}</TableCell>
                 <TableCell><Link to={row.file} target='_blank'>{row.file ? 'Download File' : 'File Not Available'}</Link></TableCell>
                 <TableCell>{row.remark}</TableCell>
-                <TableCell>
-                  <Button variant="outlined" startIcon={<VisibilityIcon />} color="secondary"
-                    onClick={() => deleteSubmition(row._id)}
-                    sx={{ marginRight: 2 }}
-                  > Delete </Button>
-                </TableCell>
+                {row.marks === 'Pending' ?
+                  <>
+                    
+                    <TableCell>{row.marks}</TableCell>
+                    <TableCell>
+                      <Button variant="outlined" startIcon={<VisibilityIcon />} color="secondary"
+                        onClick={() => deleteSubmition(row._id)}
+                        sx={{ marginRight: 2 }}
+                      > Delete </Button>
+                    </TableCell>
+                  </>
+
+                  : <TableCell>{row.marks}</TableCell>}
               </TableRow>
             ))}
           </TableBody>

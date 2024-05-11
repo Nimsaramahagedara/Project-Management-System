@@ -1,4 +1,3 @@
-import { Link, useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import {
     Button,
@@ -20,29 +19,53 @@ import {
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { Link, useParams } from 'react-router-dom';
 import { apiUrl } from '../../utils/Constants';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const Notice = () => {
 
     const { id } = useParams();
     const [openDialogIndex, setOpenDialogIndex] = useState(null);
     const [notices, setNotices] = useState([]);
+    const [marksValue, setMarksValue] = useState('');
 
     const handleCloseDialog = () => {
         setOpenDialogIndex(null);
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`${apiUrl}/submission/submissionByAsses/${id}`);
-                const data = await response.json();
-                setNotices(data);
-                console.log(data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
+    const handleMarksChange = (event) => {
+        setMarksValue(event.target.value);
+    };
+
+    const handleSaveMarks = async (row) => {
+        console.log(row._id);
+        console.log(marksValue);
+        try {
+            const resp = await axios.put(`${apiUrl}/submission/${row._id}`,{ marks: marksValue})
+            if (resp){
+                fetchData()
+                toast.success('Marks updated')
             }
-        };
+          } catch (error) {
+            console.log(error);
+          }
+        handleCloseDialog();
+    };
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`${apiUrl}/submission/submissionByAsses/${id}`);
+            const data = await response.json();
+            setNotices(data);
+            console.log(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    useEffect(() => {
 
         fetchData();
     }, []);
@@ -58,7 +81,7 @@ const Notice = () => {
                             <TableCell>Reg No</TableCell>
                             <TableCell>Student Name</TableCell>
                             <TableCell>File</TableCell>
-                            <TableCell></TableCell>
+                            <TableCell>Marks</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -70,59 +93,57 @@ const Notice = () => {
                                 <TableCell>{row.stdId ? `${row.stdId.firstName} ${row.stdId.lastName}` : 'N/A'}</TableCell>
                                 <TableCell><Link to={row.file} target='_blank'>{row.file ? 'Download File' : 'File Not Available'}</Link></TableCell>
                                 <TableCell>
-                                    <Button
-                                        variant="outlined"
-                                        startIcon={<VisibilityIcon />}
-                                        color="secondary"
-                                        onClick={() => setOpenDialogIndex(index)}
-                                        sx={{ marginRight: 2 }}
-                                    >
-                                        View Submission
-                                    </Button>
-
-                                    <Dialog
-                                        open={openDialogIndex === index}
-                                        onClose={handleCloseDialog}
-                                        sx={{ border: '2px solid #ccc' }}
-                                    >
-                                        <DialogTitle sx={{ textAlign: 'center' }}>Submission</DialogTitle>
-                                        <DialogContent>
-
-                                            <Box
-                                                component="form"
-                                                sx={{
-                                                    '& .MuiTextField-root': {
-                                                        m: 1,
-                                                        width: 500,
-                                                        maxWidth: '100%',
-                                                    },
-                                                }}
-                                                noValidate
-                                                autoComplete="off"
+                                    {row.marks === 'Pending' ?
+                                        <div>
+                                            <Button
+                                                variant="outlined"
+                                                startIcon={<VisibilityIcon />}
+                                                color="secondary"
+                                                onClick={() => setOpenDialogIndex(index)}
+                                                sx={{ marginRight: 2 }}
                                             >
-                                                <div className="mb-2">
-                                                    <label className="font-semibold">Submission: </label>
-                                                    <span>{row.submission}</span>
-                                                </div>
-                                                <div className="mb-2">
-                                                    <label className="font-semibold">Remark: </label>
-                                                    <span>{row.remark}</span>
-                                                </div>
-                                                <TextField
-                                                    fullWidth
-                                                    margin='normal'
-                                                    label='Marks'
-                                                />
-
-                                                <DialogActions style={{ justifyContent: 'center' }}>
-                                                    <Button size="small" startIcon={<SaveIcon />} variant="contained" color="primary">
-                                                        Save
-                                                    </Button>
-                                                    <Button size="small" startIcon={<CancelIcon />} variant='outlined' onClick={handleCloseDialog}>Cancel</Button>
-                                                </DialogActions>
-                                            </Box>
-                                        </DialogContent>
-                                    </Dialog>
+                                                Give Marks
+                                            </Button>
+                                            <Dialog
+                                                open={openDialogIndex === index}
+                                                onClose={handleCloseDialog}
+                                                sx={{ border: '2px solid #ccc' }}
+                                            >
+                                                <DialogTitle sx={{ textAlign: 'center' }}>Add Marks</DialogTitle>
+                                                <DialogContent>
+                                                    <Box
+                                                        component="form"
+                                                        sx={{
+                                                            '& .MuiTextField-root': {
+                                                                m: 1,
+                                                                width: 500,
+                                                                maxWidth: '100%',
+                                                            },
+                                                        }}
+                                                        noValidate
+                                                        autoComplete="off"
+                                                    >
+                                                        <TextField
+                                                            fullWidth
+                                                            type='number'
+                                                            margin='normal'
+                                                            label='Marks'
+                                                            value={marksValue}
+                                                            onChange={handleMarksChange}
+                                                        />
+                                                        <DialogActions style={{ justifyContent: 'center' }}>
+                                                            <Button size="small" startIcon={<SaveIcon />} variant="contained" color="primary" onClick={() => (handleSaveMarks(row))}>
+                                                                Save
+                                                            </Button>
+                                                            <Button size="small" startIcon={<CancelIcon />} variant='outlined' onClick={handleCloseDialog}>Cancel</Button>
+                                                        </DialogActions>
+                                                    </Box>
+                                                </DialogContent>
+                                            </Dialog>
+                                        </div>
+                                        :
+                                        `${row.marks}`
+                                    }
                                 </TableCell>
                             </TableRow>
                         ))}

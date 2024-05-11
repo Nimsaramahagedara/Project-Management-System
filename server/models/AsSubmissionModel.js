@@ -19,6 +19,10 @@ const SubmissionSchema = new mongoose.Schema({
     remark: {
         type: String,
         required:true
+    },
+    marks:{
+        type:String,
+        default:'Pending'
     }
 },{timestamps:true})
 
