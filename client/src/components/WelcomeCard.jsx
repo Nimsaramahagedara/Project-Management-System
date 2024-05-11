@@ -11,11 +11,11 @@ import Cookies from 'js-cookie';
 
 export default function WelcomeCard() {
 
-const [currentTime, setCurrentTime] = useState(new Date());
-const navigate = useNavigate();
-const {logout} = useAuth();
-const [firstName, setFirstName]= useState('Loading');
-const cardStyle = {
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+  const [firstName, setFirstName] = useState('Loading');
+  const cardStyle = {
     minWidth: 250,
     background: 'linear-gradient(to bottom right, #293660, rgba(0, 0, 0, 0)), url(https://cutewallpaper.org/21/school-background-image/Back-To-School-Background-in-2019-School-fonts-Cartoon-.jpg) top right no-repeat',
     backgroundSize: 'cover',
@@ -39,16 +39,16 @@ const cardStyle = {
           Welcome, {firstName}
         </Typography>
         <Typography variant="subtitle1" component="div">
-            Support Team Dashboard
+          Examiner Dashboard
         </Typography>
 
         {currentTime.toUTCString()}
-        
-   
-        
+
+
+
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={()=> logout()} sx={{color:'white'}}>Log out </Button>
+        <Button size="small" onClick={() => logout()} sx={{ color: 'white' }}>Log out </Button>
       </CardActions>
     </Card>
   );
